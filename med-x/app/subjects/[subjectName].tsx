@@ -1,15 +1,29 @@
-import React from "react";
-import { useLocalSearchParams } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { SystemsContext } from "../../common/interfaces";
 
 export default function Subject() {
   const { subjectName } = useLocalSearchParams<{ subjectName: string }>();
+  const { subjects } = React.useContext(SystemsContext);
+  const subject = subjects.find((subject) => subject.name === subjectName);
+
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: subjectName,
+      headerTintColor: "#fff",
+      headerStyle: { backgroundColor: "#00035B" },
+    });
+  }, [navigation, subjectName]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>{subjectName}</Text>
-      </View>
+      <ScrollView>
+        <View style={styles.dataContainer}>
+          <Text style={styles.title}>{subject.rawData}</Text>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -18,16 +32,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
-  main: {
+  dataContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    //backgroundColor: "#fff",
   },
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 14,
+    color: "red",
   },
 });
