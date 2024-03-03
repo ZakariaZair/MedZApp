@@ -1,5 +1,7 @@
 // RichTextEditor.js (for use in web environments)
 import { Color } from "@tiptap/extension-color";
+import Highlight from "@tiptap/extension-highlight";
+import Link from "@tiptap/extension-link";
 import TextStyle from "@tiptap/extension-text-style";
 import { EditorContent, FloatingMenu, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -11,6 +13,24 @@ const MenuBar = ({ editor }) => {
     return null;
   }
 
+  const addLink = () => {
+    const url = window.prompt("Enter the URL");
+    if (url) {
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange("link")
+        .setLink({ href: `${window.location.origin}/subjects/${url}` })
+        .run();
+    }
+  };
+
+  const removeLink = () => {
+    if (editor.isActive("link")) {
+      editor.chain().focus().unsetLink().run();
+    }
+  };
+
   return (
     <div className="menu-bar">
       <button
@@ -18,40 +38,28 @@ const MenuBar = ({ editor }) => {
         disabled={!editor.can().chain().focus().toggleBold().run()}
         className={editor.isActive("bold") ? "is-active" : ""}
       >
-        bold
+        b
       </button>
       <button
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
         className={editor.isActive("italic") ? "is-active" : ""}
       >
-        italic
+        i
       </button>
       <button
         onClick={() => editor.chain().focus().toggleStrike().run()}
         disabled={!editor.can().chain().focus().toggleStrike().run()}
         className={editor.isActive("strike") ? "is-active" : ""}
       >
-        strike
+        s
       </button>
-      <button
-        onClick={() => editor.chain().focus().toggleCode().run()}
-        disabled={!editor.can().chain().focus().toggleCode().run()}
-        className={editor.isActive("code") ? "is-active" : ""}
-      >
-        code
-      </button>
-      <button onClick={() => editor.chain().focus().unsetAllMarks().run()}>
-        clear marks
-      </button>
-      <button onClick={() => editor.chain().focus().clearNodes().run()}>
-        clear nodes
-      </button>
+      <div style={{ height: "100%", fontSize: "3em", marginRight: 5 }}>|</div>
       <button
         onClick={() => editor.chain().focus().setParagraph().run()}
         className={editor.isActive("paragraph") ? "is-active" : ""}
       >
-        paragraph
+        p
       </button>
       <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
@@ -71,48 +79,26 @@ const MenuBar = ({ editor }) => {
       >
         h3
       </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-        className={editor.isActive("heading", { level: 4 }) ? "is-active" : ""}
-      >
-        h4
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-        className={editor.isActive("heading", { level: 5 }) ? "is-active" : ""}
-      >
-        h5
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-        className={editor.isActive("heading", { level: 6 }) ? "is-active" : ""}
-      >
-        h6
-      </button>
+      <div style={{ height: "100%", fontSize: "3em", marginRight: 5 }}>|</div>
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={editor.isActive("bulletList") ? "is-active" : ""}
       >
-        bullet list
+        -
       </button>
       <button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={editor.isActive("orderedList") ? "is-active" : ""}
       >
-        ordered list
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={editor.isActive("codeBlock") ? "is-active" : ""}
-      >
-        code block
+        1
       </button>
       <button
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         className={editor.isActive("blockquote") ? "is-active" : ""}
       >
-        blockquote
+        q
       </button>
+      <div style={{ height: "100%", fontSize: "3em", marginRight: 5 }}>|</div>
       <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
         horizontal rule
       </button>
@@ -120,16 +106,12 @@ const MenuBar = ({ editor }) => {
         hard break
       </button>
       <button
-        onClick={() => editor.chain().focus().undo().run()}
-        disabled={!editor.can().chain().focus().undo().run()}
+        onClick={() => editor.chain().focus().toggleHighlight().run()}
+        className={
+          editor.isActive("highlight", { color: "#ffde64" }) ? "is-active" : ""
+        }
       >
-        undo
-      </button>
-      <button
-        onClick={() => editor.chain().focus().redo().run()}
-        disabled={!editor.can().chain().focus().redo().run()}
-      >
-        redo
+        🟨
       </button>
       <button
         onClick={() => editor.chain().focus().setColor("#958DF1").run()}
@@ -137,15 +119,40 @@ const MenuBar = ({ editor }) => {
           editor.isActive("textStyle", { color: "#958DF1" }) ? "is-active" : ""
         }
       >
-        purple
+        🟣
+      </button>
+      <div style={{ height: "100%", fontSize: "3em", marginRight: 5 }}>|</div>
+      <button onClick={addLink}>link</button>
+      <button onClick={removeLink}>unlink</button>
+      <div style={{ height: "100%", fontSize: "3em", marginRight: 5 }}>|</div>
+      <button
+        style={{ fontSize: "2em" }}
+        onClick={() => editor.chain().focus().undo().run()}
+        disabled={!editor.can().chain().focus().undo().run()}
+      >
+        ↜
+      </button>
+      <button
+        style={{ fontSize: "2em" }}
+        onClick={() => editor.chain().focus().redo().run()}
+        disabled={!editor.can().chain().focus().redo().run()}
+      >
+        ↝
       </button>
     </div>
   );
 };
-
 const RichTextEditor = ({ content, onUpdate }) => {
   const editor = useEditor({
-    extensions: [StarterKit, TextStyle, Color],
+    extensions: [
+      StarterKit,
+      TextStyle,
+      Color,
+      Link,
+      Highlight.configure({
+        multicolor: true,
+      }),
+    ],
     content: content,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
@@ -169,10 +176,68 @@ const RichTextEditor = ({ content, onUpdate }) => {
       <div className="editor-container">
         <EditorContent editor={editor} />
       </div>
-      {/* Optionally, add FloatingMenu or BubbleMenu for more interactivity */}
-      <FloatingMenu editor={editor}>{/* ... menu items */}</FloatingMenu>
     </div>
   );
 };
 
 export default RichTextEditor;
+
+/*
+<FloatingMenu editor={editor}>
+  {
+    <div className="floating-bar">
+      <button
+        onClick={() =>
+          editor.chain().focus().toggleHeading({ level: 1 }).run()
+        }
+        className={
+          editor.isActive("heading", { level: 1 }) ? "is-active" : ""
+        }
+      >
+        h1
+      </button>
+      <button
+        onClick={() =>
+          editor.chain().focus().toggleHeading({ level: 2 }).run()
+        }
+        className={
+          editor.isActive("heading", { level: 2 }) ? "is-active" : ""
+        }
+      >
+        h2
+      </button>
+      <button
+        onClick={() =>
+          editor.chain().focus().toggleHeading({ level: 3 }).run()
+        }
+        className={
+          editor.isActive("heading", { level: 3 }) ? "is-active" : ""
+        }
+      >
+        h3
+      </button>
+      <div style={{ height: "100%", fontSize: "3em", marginRight: 5 }}>
+        |
+      </div>
+      <button
+        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        className={editor.isActive("bulletList") ? "is-active" : ""}
+      >
+        -
+      </button>
+      <button
+        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        className={editor.isActive("orderedList") ? "is-active" : ""}
+      >
+        1
+      </button>
+      <button
+        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        className={editor.isActive("blockquote") ? "is-active" : ""}
+      >
+        q
+      </button>
+    </div>
+  }
+</FloatingMenu>
+*/

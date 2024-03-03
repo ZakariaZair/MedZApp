@@ -1,4 +1,4 @@
-import { SystemsContext } from "../../common/interfaces";
+import { SystemsContext } from "../../../common/interfaces";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React from "react";
 import { useEffect } from "react";

@@ -81,6 +81,13 @@ export default function TabsLayout() {
           href: Platform.OS === "web" ? "/admin" : null,
         }}
       />
+      <Tabs.Screen
+        key="systems"
+        name="systems/[systemName]"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   );
 }

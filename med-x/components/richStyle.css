@@ -28,14 +28,12 @@
 }
 
 .editor-container {
-    max-height: 600px; /* Adjust the max-height as needed */
+    max-height: 590px; /* Adjust the max-height as needed */
     overflow-y: auto; /* Make it scrollable vertically */
     padding: 5px;
 }
 
 .menu-bar {
-    margin-left: 40%;
-    margin-right: 40%;
     margin-bottom: 7px;
     padding: 2px; /* Some padding around the buttons */
     display: flex; /* Align buttons in a row */
@@ -55,7 +53,34 @@
 
 .menu-bar button.is-active,
 .menu-bar button:hover {
-    font-weight: bold;
+    color: #000;
+    background-color: #e4e4e4; /* Light grey background for active/hover state */
+}
+
+.floating-bar {
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-bottom: 2px;
+    padding: 5px; /* Some padding around the buttons */
+    display: flex; /* Align buttons in a row */
+    justify-content: center; /* Center the buttons */
+    align-items: center;
+}
+
+.floating-bar button {
+    height: 50%;
+    background-color: #000; /* White background for buttons */
+    border: 1px solid #d0d0d0; /* Light grey border */
+    border-radius: 3px; /* Rounded corners */
+    padding: 4px 7px; /* Padding inside the buttons */
+    margin-right: 2px; /* Space between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    outline: none; /* Remove outline */
+    color: #fff;
+}
+
+.floating-bar button.is-active,
+.floating-bar button:hover {
     color: #000;
     background-color: #e4e4e4; /* Light grey background for active/hover state */
 }

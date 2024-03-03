@@ -59,13 +59,18 @@ export default function Configuration() {
               </TouchableOpacity>
               {selectedSystemIndex === index && (
                 <View style={styles.subject}>
-                  {system.subjects.map((subject, subjectIndex) => (
-                    <View key={subjectIndex}>
-                      <TouchableOpacity onPress={() => loadContent(subject)}>
-                        <Text style={styles.subject}> {subject} </Text>
-                      </TouchableOpacity>
-                    </View>
-                  ))}
+                  {system.subjects &&
+                    system.subjects.length > 0 &&
+                    system.subjects.map((subject, subjectIndex) => (
+                      <View key={subjectIndex}>
+                        <TouchableOpacity onPress={() => loadContent(subject)}>
+                          <Text style={styles.subject}> {subject} </Text>
+                        </TouchableOpacity>
+                      </View>
+                    ))}
+                  {!system.subjects && (
+                    <Text style={styles.subject}> No subjects found </Text>
+                  )}
                 </View>
               )}
             </View>
@@ -73,7 +78,7 @@ export default function Configuration() {
         </ScrollView>
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.subject}>{currentSubjectName}</Text>
+        <Text style={styles.subjectTitle}>{currentSubjectName}</Text>
         <RichTextEditor content={content} onUpdate={setContent} />
         {currentSubjectName &&
           subjects.find((subject) => subject.name === currentSubjectName)
@@ -129,11 +134,20 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     fontFamily: "Courier",
     color: "white",
+    borderBottomWidth: 5,
+    borderBottomColor: "#000A4D",
   },
   subject: {
     padding: 10,
+    marginLeft: 20,
     fontSize: 20,
     fontFamily: "Courier",
+    color: "white",
+  },
+  subjectTitle: {
+    padding: 10,
+    fontSize: 80,
+    fontFamily: "Roman",
     color: "white",
   },
   contentContainer: {
