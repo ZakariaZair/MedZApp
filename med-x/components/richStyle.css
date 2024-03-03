@@ -1,0 +1,61 @@
+/* Add this CSS to the stylesheet of your application */
+
+/* This targets the editor content area */
+.ProseMirror {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 15%;
+    margin-right: 15%;
+    background-color: #fff;
+    color: #000;
+    border-color: #e0e0e0;
+}
+
+/* This targets the active state of menu items, which you might have for formatting options */
+.ProseMirror-menubar {
+    background-color: #f5f5f5;
+}
+
+.ProseMirror-menuitem-active {
+    background-color: #e4e4e4;
+    border-radius: 4px;
+}
+
+/* This targets the selected text */
+.ProseMirror-selectednode {
+    background-color: #8ccfff;
+}
+
+.editor-container {
+    max-height: 600px; /* Adjust the max-height as needed */
+    overflow-y: auto; /* Make it scrollable vertically */
+    padding: 5px;
+}
+
+.menu-bar {
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-bottom: 7px;
+    padding: 2px; /* Some padding around the buttons */
+    display: flex; /* Align buttons in a row */
+    justify-content: center; /* Center the buttons */
+}
+
+.menu-bar button {
+    background-color: #000; /* White background for buttons */
+    border: 1px solid #d0d0d0; /* Light grey border */
+    border-radius: 3px; /* Rounded corners */
+    padding: 5px 10px; /* Padding inside the buttons */
+    margin-right: 5px; /* Space between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    outline: none; /* Remove outline */
+    color: #fff;
+}
+
+.menu-bar button.is-active,
+.menu-bar button:hover {
+    font-weight: bold;
+    color: #000;
+    background-color: #e4e4e4; /* Light grey background for active/hover state */
+}

@@ -1,32 +1,47 @@
-import { SystemsContext } from "../../../common/interfaces";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import Logo from "../../../assets/images/white_logo_nobg.png";
+import { SystemsContext } from "../../../common/interfaces";
+import RichTextEditor from "../../../components/richtexteditor";
+import { modify } from "../../../supabase/supabaseClient";
 
 export default function Configuration() {
-  const { systems, subjects } = React.useContext(SystemsContext);
+  const { systems, subjects, refreshData } = React.useContext(SystemsContext);
   const [selectedSystemIndex, setSelectedSystemIndex] = useState(null);
-  const [content, setContent] = useState(null);
-
-  const loadContent = (subjectName: string) => {
-    const content = subjects.find(
-      (subject) => subject.name === subjectName,
-    ).rawData;
-    setContent(content);
-  };
+  const [currentSubjectName, setSubjectName] = useState(null);
+  const [content, setContent] = useState(
+    "<p> Select a subject to view content </p>",
+  );
 
   const toggleSystem = (index: number) => {
     if (selectedSystemIndex === index) {
       setSelectedSystemIndex(null);
     } else {
       setSelectedSystemIndex(index);
+    }
+  };
+
+  const loadContent = (subjectName: string) => {
+    const content = subjects.find(
+      (subject) => subject.name === subjectName,
+    ).rawData;
+    setSubjectName(subjectName);
+    setContent(content);
+  };
+
+  const save = () => {
+    if (currentSubjectName && content) {
+      modify(currentSubjectName, content).then(() => {
+        refreshData();
+      });
     }
   };
 
@@ -57,7 +72,17 @@ export default function Configuration() {
           ))}
         </ScrollView>
       </View>
-      <View style={styles.content}>{content}</View>
+      <View style={styles.contentContainer}>
+        <Text style={styles.subject}>{currentSubjectName}</Text>
+        <RichTextEditor content={content} onUpdate={setContent} />
+        {currentSubjectName &&
+          subjects.find((subject) => subject.name === currentSubjectName)
+            .rawData !== content && (
+            <Pressable style={styles.save} onPress={save}>
+              <Text style={styles.saveText}>Save</Text>
+            </Pressable>
+          )}
+      </View>
     </View>
   );
 }
@@ -111,10 +136,26 @@ const styles = StyleSheet.create({
     fontFamily: "Courier",
     color: "white",
   },
-  content: {
+  contentContainer: {
     width: "80%",
     height: "100%",
     padding: 10,
     color: "white",
+    alignItems: "center",
+  },
+  save: {
+    backgroundColor: "black",
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10,
+    borderWidth: 2,
+    borderColor: "grey",
+    borderStyle: "solid",
+  },
+  saveText: {
+    color: "white",
+    fontWeight: "bold",
+    letterSpacing: 2,
+    fontSize: 40,
   },
 });

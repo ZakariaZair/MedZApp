@@ -1,6 +1,12 @@
-import React, { useEffect } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
+import RenderHTML from "react-native-render-html";
 import { SystemsContext } from "../../common/interfaces";
 
 export default function Subject() {
@@ -17,11 +23,20 @@ export default function Subject() {
     });
   }, [navigation, subjectName]);
 
+  const source = {
+    html: subject
+      ? subject.rawData
+      : "<p>Error - Reload app or call assistance</p>",
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.dataContainer}>
-          <Text style={styles.title}>{subject.rawData}</Text>
+          <RenderHTML
+            contentWidth={useWindowDimensions.prototype.width}
+            source={source}
+          />
         </View>
       </ScrollView>
     </View>
@@ -35,10 +50,9 @@ const styles = StyleSheet.create({
   },
   dataContainer: {
     flex: 1,
-    //backgroundColor: "#fff",
+    marginHorizontal: 8,
   },
   title: {
     fontSize: 14,
-    color: "red",
   },
 });

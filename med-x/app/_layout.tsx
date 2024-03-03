@@ -6,6 +6,19 @@ import { useEffect, useState } from "react";
 export default function RootLayout() {
   const [systems, setSystems] = useState<System[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
+  const refreshData = () => {
+    fetchSystems()
+      .then(setSystems)
+      .catch((error) => {
+        console.error("Failed to fetch systems:", error);
+      });
+
+    fetchSubjects()
+      .then(setSubjects)
+      .catch((error) => {
+        console.error("Failed to fetch subjects:", error);
+      });
+  };
 
   useEffect(() => {
     fetchSystems()
@@ -22,7 +35,7 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <SystemsContext.Provider value={{ systems, subjects }}>
+    <SystemsContext.Provider value={{ systems, subjects, refreshData }}>
       <Stack>
         <Stack.Screen
           name="(tabs)"

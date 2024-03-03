@@ -23,3 +23,19 @@ export async function fetchSubjects(): Promise<Subject[]> {
   if (error) console.log("Error fetching data:", error);
   return data;
 }
+
+export async function modify(
+  subjectName: string,
+  rawData: string,
+): Promise<System> {
+  const { data, error } = await supabase
+    .from("subject")
+    .update({ rawData: rawData })
+    .eq("name", subjectName);
+
+  if (error) {
+    console.error("Error updating subject content:", error);
+    return null;
+  }
+  return data;
+}
