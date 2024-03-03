@@ -24,10 +24,10 @@ export default function System() {
         {system.subjects.map((subject, index) => (
           <Pressable
             key={index}
-            onPress={() => router.push(`/subjects/${subject.name}`)}
+            onPress={() => router.push(`/subjects/${subject}`)}
             style={styles.subject}
           >
-            <Text style={styles.subjectName}>{subject.name}</Text>
+            <Text style={styles.subjectName}>{subject}</Text>
           </Pressable>
         ))}
       </ScrollView>

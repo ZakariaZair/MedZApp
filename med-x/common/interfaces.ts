@@ -7,7 +7,7 @@ export interface Subject {
 
 export interface System {
   name: string;
-  subjects: Subject[];
+  subjects: string[];
 }
 
 export interface SystemsContextType {

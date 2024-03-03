@@ -12,9 +12,8 @@ import Logo from "../../assets/images/white_logo_nobg.png";
 import { SystemsContext } from "../../common/interfaces";
 
 export default function Main() {
-  // fetchData();
-
   const { systems } = React.useContext(SystemsContext);
+
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>

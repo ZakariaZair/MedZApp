@@ -1,14 +1,25 @@
+import { fetchSystems, fetchSubjects } from "../supabase/supabaseClient";
 import { Subject, System, SystemsContext } from "../common/interfaces";
 import { Stack } from "expo-router";
-
-const systems: System[] = [];
-const subjects: Subject[] = [];
+import { useEffect, useState } from "react";
 
 export default function RootLayout() {
-  for (let i = 0; i < 4; i++) {
-    subjects.push({ name: `subject: ${i}`, rawData: "subject" });
-    systems.push({ name: `system: ${i}`, subjects: subjects });
-  }
+  const [systems, setSystems] = useState<System[]>([]);
+  const [subjects, setSubjects] = useState<Subject[]>([]);
+
+  useEffect(() => {
+    fetchSystems()
+      .then(setSystems)
+      .catch((error) => {
+        console.error("Failed to fetch systems:", error);
+      });
+
+    fetchSubjects()
+      .then(setSubjects)
+      .catch((error) => {
+        console.error("Failed to fetch subjects:", error);
+      });
+  }, []);
 
   return (
     <SystemsContext.Provider value={{ systems, subjects }}>

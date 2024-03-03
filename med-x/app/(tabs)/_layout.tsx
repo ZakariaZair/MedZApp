@@ -1,10 +1,17 @@
-import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import {
+  Entypo,
+  FontAwesome5,
+  Ionicons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { Platform } from "react-native";
 
 export default function TabsLayout() {
   return (
     <Tabs>
       <Tabs.Screen
+        key="index"
         name="index"
         options={{
           headerTitle: "Systems",
@@ -21,6 +28,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        key="search"
         name="search"
         options={{
           headerTitle: "What do you need ?",
@@ -35,6 +43,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        key="about"
         name="about"
         options={{
           headerTitle: "... À propos ...",
@@ -46,6 +55,30 @@ export default function TabsLayout() {
               color="black"
             />
           ),
+        }}
+      />
+      <Tabs.Screen
+        key="config"
+        name="admin/configuration"
+        options={{
+          headerShown: false,
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        key="admin"
+        name="admin/index"
+        options={{
+          headerShown: false,
+          title: "",
+          tabBarIcon: () => (
+            <MaterialIcons
+              name="admin-panel-settings"
+              size={24}
+              color="black"
+            />
+          ),
+          href: Platform.OS === "web" ? "/admin" : null,
         }}
       />
     </Tabs>
