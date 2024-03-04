@@ -44,8 +44,6 @@ export default function RootLayout() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="systems/[systemName]" />
-        <Stack.Screen name="subjects/[subjectName]" />
       </Stack>
     </SystemsContext.Provider>
   );

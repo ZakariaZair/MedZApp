@@ -82,9 +82,18 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        key="systems"
+        key="systems/[systemName]"
         name="systems/[systemName]"
         options={{
+          title: "",
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        key="systems/index"
+        name="systems/index"
+        options={{
+          title: "",
           href: null,
         }}
       />

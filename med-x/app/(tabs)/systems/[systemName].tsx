@@ -12,7 +12,7 @@ export default function System() {
   const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: systemName,
+      href: null,
       headerTintColor: "#fff",
       headerStyle: { backgroundColor: "#00035B" },
     });

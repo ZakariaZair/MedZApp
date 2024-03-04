@@ -1,11 +1,6 @@
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
 import RenderHTML from "react-native-render-html";
 import { SystemsContext } from "../../common/interfaces";
 
@@ -34,7 +29,7 @@ export default function Subject() {
       <ScrollView>
         <View style={styles.dataContainer}>
           <RenderHTML
-            contentWidth={useWindowDimensions.prototype.width}
+            contentWidth={Dimensions.get("window").width}
             source={source}
           />
         </View>
