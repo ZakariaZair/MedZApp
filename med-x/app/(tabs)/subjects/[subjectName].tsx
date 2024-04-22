@@ -1,18 +1,31 @@
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect } from "react";
-import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
+import {
+    Dimensions,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
 import RenderHTML from "react-native-render-html";
-import { SystemsContext } from "../../common/interfaces";
+import { SystemsContext } from "../../../common/interfaces";
 
 export default function Subject() {
   const { subjectName } = useLocalSearchParams<{ subjectName: string }>();
-  const { subjects } = React.useContext(SystemsContext);
+  const { systems, subjects } = React.useContext(SystemsContext);
   const subject = subjects.find((subject) => subject.name === subjectName);
+  const system = systems.find((system) => system.subjects.find((subject) =>  subject === subjectName ));
 
   const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({
       headerTitle: subjectName,
+      headerLeft: () => (
+        <Pressable onPress={() => router.push(`/systems/${system.name}`)}>
+          <Text style={styles.back}>Retour</Text>
+        </Pressable>
+      ),
       headerTintColor: "#fff",
       headerStyle: { backgroundColor: "#00035B" },
     });
@@ -49,5 +62,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
+  },
+  back: {
+    color: "#fff",
+    fontSize: 16,
+    marginLeft: 10,
   },
 });

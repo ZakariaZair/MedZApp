@@ -1,8 +1,7 @@
-import { SystemsContext } from "../../../common/interfaces";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { SystemsContext } from "../../../common/interfaces";
 
 export default function System() {
   const { systemName } = useLocalSearchParams<{ systemName: string }>();
@@ -12,27 +11,36 @@ export default function System() {
   const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({
-      href: null,
+      headerTitle: systemName,
+      headerLeft: () => (
+        <Pressable onPress={() => router.back()}>
+          <Text style={styles.back}>Retour</Text>
+        </Pressable>
+      ),
       headerTintColor: "#fff",
       headerStyle: { backgroundColor: "#00035B" },
     });
   }, [navigation, systemName]);
 
-  return (
-    <View style={styles.subjectsContainer}>
-      <ScrollView>
-        {system.subjects.map((subject, index) => (
-          <Pressable
-            key={index}
-            onPress={() => router.push(`/subjects/${subject}`)}
-            style={styles.subject}
-          >
-            <Text style={styles.subjectName}>{subject}</Text>
-          </Pressable>
-        ))}
-      </ScrollView>
-    </View>
-  );
+  if (!system || !system.subjects) {
+    return <Text style={styles.errorText}>À venir</Text>;
+  } else {
+    return (
+      <View style={styles.subjectsContainer}>
+        <ScrollView>
+          {system.subjects.map((subject, index) => (
+            <Pressable
+              key={index}
+              onPress={() => router.push(`/subjects/${subject}`)}
+              style={styles.subject}
+            >
+              <Text style={styles.subjectName}>{subject}</Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -52,5 +60,16 @@ const styles = StyleSheet.create({
   subjectName: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  errorText: {
+    marginTop: 40,
+    fontSize: 25,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  back: {
+    color: "#fff",
+    fontSize: 16,
+    marginLeft: 10,
   },
 });

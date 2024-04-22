@@ -1,7 +1,8 @@
-import { fetchSystems, fetchSubjects } from "../supabase/supabaseClient";
-import { Subject, System, SystemsContext } from "../common/interfaces";
 import { Stack } from "expo-router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { StatusBar } from "react-native";
+import { Subject, System, SystemsContext } from "../common/interfaces";
+import { fetchSubjects, fetchSystems } from "../supabase/supabaseClient";
 
 export default function RootLayout() {
   const [systems, setSystems] = useState<System[]>([]);
@@ -36,6 +37,7 @@ export default function RootLayout() {
 
   return (
     <SystemsContext.Provider value={{ systems, subjects, refreshData }}>
+      <StatusBar barStyle="light-content" />
       <Stack>
         <Stack.Screen
           name="(tabs)"

@@ -1,28 +1,50 @@
 import { router } from "expo-router";
-import { SystemsContext } from "../../common/interfaces";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
+    Image,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    View
 } from "react-native";
+import Logo from "../../assets/icon.png";
+import { SystemsContext } from "../../common/interfaces";
 
 export default function Search() {
-  const { systems, subjects } = React.useContext(SystemsContext);
+  const { systems } = React.useContext(SystemsContext);
   const [search, setSearch] = useState("");
 
   const handleSearch = (text: string) => {
     setSearch(text);
   };
 
+  function highlightMatch(text: string, search: string) {
+    const normedText = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const normedSearch = search.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const index = normedText.toLowerCase().indexOf(normedSearch.toLowerCase());
+
+    if (index >= 0) {
+      const beforeMatch = text.slice(0, index);
+      const match = text.slice(index, index + normedSearch.length);
+      const afterMatch = text.slice(index + normedSearch.length);
+      return (
+        <Text style={styles.systemName}>
+          {beforeMatch}
+          <Text style={styles.highlight}>{match}</Text>
+          {afterMatch}
+        </Text>
+      );
+    }
+    return text;
+  }
+
   function findSystems(search: string) {
+    const normedSearch = search.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     return systems
       .filter((system) =>
-        system.name.toLowerCase().includes(search.toLowerCase()),
+        system.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(normedSearch),
       )
       .map((system, index) => (
         <Pressable
@@ -30,23 +52,22 @@ export default function Search() {
           onPress={() => router.push(`/systems/${system.name}`)} // assuming you have a unique 'id' field
           style={styles.searchResult}
         >
-          <Text style={styles.systemName}>{system.name}</Text>
+          {highlightMatch(system.name, search)}
         </Pressable>
       ));
   }
 
   function findSubjects(search: string) {
-    const lowerCaseSearch = search.toLowerCase();
+    const normedSearch = search.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     return systems
       .filter((system) =>
         (system.subjects || []).some((subject) =>
-          subject.toLowerCase().includes(lowerCaseSearch),
+          subject.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(normedSearch),
         ),
       )
       .map((system, index) => {
-        // Find the first subject that matches the search term
         const matchingSubject = (system.subjects || []).find((subject) =>
-          subject.toLowerCase().includes(lowerCaseSearch),
+          subject.toLowerCase().includes(normedSearch),
         );
 
         return (
@@ -55,10 +76,8 @@ export default function Search() {
             onPress={() => router.push(`/subjects/${matchingSubject}`)}
             style={styles.searchResult}
           >
-            <Text style={styles.systemName}>{system.name}</Text>
-            {matchingSubject && (
-              <Text style={styles.subjectName}> → {matchingSubject}</Text>
-            )}
+            <Text style={styles.systemName}>{system.name}  ->   </Text>
+            {matchingSubject && highlightMatch(matchingSubject, search)}
           </Pressable>
         );
       });
@@ -68,16 +87,32 @@ export default function Search() {
     <View style={styles.container}>
       <TextInput
         style={styles.searchBar}
-        placeholder="Search"
+        autoCorrect={false}
+        autoCapitalize="none"
+        placeholder="Recherchez"
         onChangeText={handleSearch}
       ></TextInput>
-      <ScrollView style={styles.searchResults}>
-        <Text style={styles.searchTitle}>Systems</Text>
-        {search && findSystems(search)}
-        <Text style={styles.searchTitle}>Subjects</Text>
-        {search && findSubjects(search)}
-        <Text style={styles.searchTitle}>Content</Text>
-      </ScrollView>
+      {search.length > 0 &&
+        <ScrollView style={styles.searchResults} contentContainerStyle={styles.contentContainer}>
+          <View style={styles.searchTitle}>
+            <Text style={styles.searchTitleText}>Systèmes</Text>
+          </View>
+          {search && findSystems(search)}
+          <View style={styles.searchTitle}>
+            <Text style={styles.searchTitleText}>Sujets</Text>
+          </View>
+          {search && findSubjects(search)}
+          <View style={styles.searchTitle}>
+            <Text style={styles.searchTitleText}>À venir</Text>
+          </View>
+        </ScrollView>
+      }
+      {search.length <= 0 &&
+        <View style={styles.noContentContainer}>
+          <Image source={Logo} style={{ width: 200, height: 200, opacity: 0.1 }} />
+          <Text style={styles.noContentPlaceholder}>Recherchez un système ou un sujet</Text>
+        </View>
+      }
     </View>
   );
 }
@@ -85,26 +120,46 @@ export default function Search() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
+    padding: 10,
+    alignItems: "center",
+    backgroundColor: "#fff",
+  },
+  contentContainer:{
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
   },
   searchBar: {
-    width: "80%",
+    width: "90%",
     paddingHorizontal: 10,
     height: 40,
     borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 10,
-    margin: 10,
+    borderWidth: 0.4,
+    borderRadius: 5,
+    margin: 5,
   },
   searchResults: {
     width: "100%",
   },
   searchTitle: {
-    marginLeft: 10,
+    width: "100%",
+    borderBottomColor: "lightgrey",
+    borderBottomWidth: 4,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+  },
+  searchTitleText: {
     fontSize: 20,
     fontWeight: "bold",
+    textAlign: "center",
   },
   searchResult: {
+    width: "100%",
     padding: 10,
     marginTop: 5,
     backfaceVisibility: "hidden",
@@ -114,11 +169,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   systemName: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: "bold",
   },
   subjectName: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: "bold",
+  },
+  noContentContainer: {
+    height: "70%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noContentPlaceholder: {
+    fontSize: 10,
+    fontWeight: "bold",
+    textAlign: "center",
+    opacity: 0.3,
+  },
+  highlight: {
+    backgroundColor: "#00035B33",
+    color: "blue",
   },
 });

@@ -3,11 +3,11 @@
     "version": ">= 7.3.0"
   },
   "build": {
-    "development": {
-      "developmentClient": true,
+    "preview": {
       "distribution": "internal"
     },
-    "preview": {
+    "development": {
+      "developmentClient": true,
       "distribution": "internal"
     },
     "production": {}

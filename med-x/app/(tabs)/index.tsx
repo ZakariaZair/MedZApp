@@ -18,9 +18,8 @@ export default function Main() {
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image source={Logo} style={styles.logo} />
-        <Text style={styles.title}> MedXNotes</Text>
+        <Text style={styles.title}>MedXNotes</Text>
       </View>
-
       <ScrollView>
         {systems.map((system, index) => (
           <Pressable
@@ -41,6 +40,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     padding: "auto",
+  },
+  modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalTitle: {
+    fontSize: 60,
+    marginBottom: 20,
+  },
+  modalInput: {
+    width: "50%",
+    padding: 10,
+    marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "lightgrey",
+  },
+  connexion: {
+    borderTopWidth: 1,
+    borderTopColor: "lightgrey",
+    fontSize: 20,
   },
   system: {
     padding: 10,

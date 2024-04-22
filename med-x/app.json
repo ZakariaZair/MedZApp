@@ -25,6 +25,10 @@
         "backgroundColor": "#ffffff"
       }
     },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#ffffff"
+    },
     "web": {
       "bundler": "metro",
       "favicon": "./assets/favicon.png"
