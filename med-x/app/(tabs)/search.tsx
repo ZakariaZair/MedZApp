@@ -17,7 +17,7 @@ export default function Search() {
   const [search, setSearch] = useState("");
 
   const handleSearch = (text: string) => {
-    setSearch(text);
+    setSearch(text.trim());
   };
 
   function highlightMatch(text: string, search: string) {
@@ -97,14 +97,11 @@ export default function Search() {
           <View style={styles.searchTitle}>
             <Text style={styles.searchTitleText}>Systèmes</Text>
           </View>
-          {search && findSystems(search)}
+          {findSystems(search)}
           <View style={styles.searchTitle}>
             <Text style={styles.searchTitleText}>Sujets</Text>
           </View>
-          {search && findSubjects(search)}
-          <View style={styles.searchTitle}>
-            <Text style={styles.searchTitleText}>À venir</Text>
-          </View>
+          {findSubjects(search)}
         </ScrollView>
       }
       {search.length <= 0 &&

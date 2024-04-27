@@ -17,7 +17,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.med-x"
+      "bundleIdentifier": "com.anonymous.med-x",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
