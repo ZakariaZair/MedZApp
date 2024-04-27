@@ -1,14 +1,14 @@
 import { Link, router } from "expo-router";
+import React, { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Image,
-  Pressable,
+    Image,
+    Pressable,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
 } from "react-native";
 import Logo from "../../../assets/images/white_logo_nobg.png";
-import { useState } from "react";
 
 export default function Admin() {
   const [password, setPassword] = useState("");
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#1E1E1E",
+    backgroundColor: "#000066",
     paddingHorizontal: 20,
   },
   adminContainer: {

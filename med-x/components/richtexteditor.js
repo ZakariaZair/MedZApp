@@ -3,7 +3,7 @@ import { Color } from "@tiptap/extension-color";
 import Highlight from "@tiptap/extension-highlight";
 import Link from "@tiptap/extension-link";
 import TextStyle from "@tiptap/extension-text-style";
-import { EditorContent, FloatingMenu, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React from "react";
 import "./richStyle.css";
@@ -16,6 +16,7 @@ const MenuBar = ({ editor }) => {
   const addLink = () => {
     const url = window.prompt("Enter the URL");
     if (url) {
+
       editor
         .chain()
         .focus()
@@ -145,7 +146,12 @@ const MenuBar = ({ editor }) => {
 const RichTextEditor = ({ content, onUpdate }) => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        keyboardShortcuts: {
+          'Mod-z': () => editor.commands.undo(),
+          'Mod-Shift-z': () => editor.commands.redo(),
+        }
+      }),
       TextStyle,
       Color,
       Link,
@@ -156,7 +162,7 @@ const RichTextEditor = ({ content, onUpdate }) => {
     content: content,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      onUpdate(html); // Or however you want to handle the updated content
+      onUpdate(html);
     },
   });
 
@@ -173,9 +179,7 @@ const RichTextEditor = ({ content, onUpdate }) => {
   return (
     <div>
       <MenuBar editor={editor} />
-      <div className="editor-container">
-        <EditorContent editor={editor} />
-      </div>
+      <EditorContent className="editor-container" editor={editor} />
     </div>
   );
 };

@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import { Ionicons, Octicons } from '@expo/vector-icons';
+import React, { useEffect, useRef, useState } from "react";
 import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Animated,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import Logo from "../../../assets/images/white_logo_nobg.png";
 import { SystemsContext } from "../../../common/interfaces";
 import RichTextEditor from "../../../components/richtexteditor";
 import { modify } from "../../../supabase/supabaseClient";
@@ -17,9 +17,28 @@ export default function Configuration() {
   const { systems, subjects, refreshData } = React.useContext(SystemsContext);
   const [selectedSystemIndex, setSelectedSystemIndex] = useState(null);
   const [currentSubjectName, setSubjectName] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const sidebarPosition = useRef(new Animated.Value(-300)).current;
+  const sidebarTogglePosition = useRef(new Animated.Value(0)).current;
   const [content, setContent] = useState(
-    "<p> Select a subject to view content </p>",
+    "<p> Sélectionnez un sujet pour commencer ! </p>",
   );
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    Animated.spring(sidebarPosition, {
+      toValue: isOpen ? 0 : -300,
+      useNativeDriver: true,
+    }).start();
+
+    Animated.spring(sidebarTogglePosition, {
+        toValue: isOpen ? -300 : 0,
+        useNativeDriver: true,
+      }).start();
+  }, [isOpen]);
 
   const toggleSystem = (index: number) => {
     if (selectedSystemIndex === index) {
@@ -47,12 +66,19 @@ export default function Configuration() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.sidebar}>
-        <View style={styles.logoContainer}>
-          <Image source={Logo} style={styles.logo} />
-        </View>
+      <Animated.View style={[styles.toggleSiderbar, { transform: [{ translateX: sidebarTogglePosition }] }]}>
+          <Pressable onPress={toggleSidebar}>
+            <Octicons name="three-bars" size={40} color="white" />
+          </Pressable>
+      </Animated.View>
+      <Animated.View style={[styles.sidebar, {
+        transform: [{ translateX: sidebarPosition }]
+      }]}>
+        <Pressable onPress={toggleSidebar}>
+          <Ionicons name="arrow-back" style={{color:"#333"}} size={60} color="white" />
+        </Pressable>
         <ScrollView style={styles.systems}>
-          {systems.map((system, index) => (
+          {systems.sort().map((system, index) => (
             <View key={index}>
               <TouchableOpacity onPress={() => toggleSystem(index)}>
                 <Text style={styles.system}> {system.name} </Text>
@@ -61,7 +87,7 @@ export default function Configuration() {
                 <View style={styles.subject}>
                   {system.subjects &&
                     system.subjects.length > 0 &&
-                    system.subjects.map((subject, subjectIndex) => (
+                    system.subjects.sort().map((subject, subjectIndex) => (
                       <View key={subjectIndex}>
                         <TouchableOpacity onPress={() => loadContent(subject)}>
                           <Text style={styles.subject}> {subject} </Text>
@@ -76,10 +102,10 @@ export default function Configuration() {
             </View>
           ))}
         </ScrollView>
-      </View>
+      </Animated.View>
       <View style={styles.contentContainer}>
-        <Text style={styles.subjectTitle}>{currentSubjectName}</Text>
-        <RichTextEditor content={content} onUpdate={setContent} />
+        {currentSubjectName && <Text style={styles.subjectTitle}>{currentSubjectName}</Text> }
+        {currentSubjectName && <RichTextEditor content={content} onUpdate={setContent} /> }
         {currentSubjectName &&
           subjects.find((subject) => subject.name === currentSubjectName)
             .rawData !== content && (
@@ -98,24 +124,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     height: "100%",
-    backgroundColor: "#1E1E1E",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
   },
   sidebar: {
     flex: 1,
-    width: "20%",
+    position: 'absolute',
+    width: 300,
     height: "100%",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    borderRightWidth: 3,
-    borderRightColor: "white",
+    left: 0,
+    top: 0,
   },
   logoContainer: {
     width: "100%",
     height: "15%",
+    display: "flex",
     justifyContent: "center",
     alignItems: "center",
     paddingBottom: 10,
@@ -132,8 +160,7 @@ const styles = StyleSheet.create({
   system: {
     fontSize: 25,
     paddingVertical: 20,
-    fontFamily: "Courier",
-    color: "white",
+    color: "black",
     borderBottomWidth: 5,
     borderBottomColor: "#000A4D",
   },
@@ -141,20 +168,19 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 20,
     fontSize: 20,
-    fontFamily: "Courier",
-    color: "white",
+    color: "black",
   },
   subjectTitle: {
     padding: 10,
-    fontSize: 80,
+    fontSize: 40,
     fontFamily: "Roman",
-    color: "white",
+    color: "black",
   },
   contentContainer: {
     width: "80%",
     height: "100%",
     padding: 10,
-    color: "white",
+    color: "black",
     alignItems: "center",
   },
   save: {
@@ -172,4 +198,13 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     fontSize: 40,
   },
+  toggleSiderbar: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 5,
+    zIndex: 10,
+    },
 });
