@@ -7,7 +7,8 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npx expo export --platform web && gh-pages -d dist",
+    "deployOnly": "gh-pages -d dist"
   },
   "homepage": "https://zakariazair.github.io/MedXApp/",
   "dependencies": {
