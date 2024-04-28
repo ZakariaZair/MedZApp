@@ -10,12 +10,14 @@ import {
     View,
 } from "react-native";
 import { SystemsContext } from "../../../common/interfaces";
+import AddSubjectModal from '../../../components/addSubject';
 import RichTextEditor from "../../../components/richtexteditor";
 import { modify } from "../../../supabase/supabaseClient";
 
 export default function Configuration() {
   const { systems, subjects, refreshData } = React.useContext(SystemsContext);
   const [selectedSystemIndex, setSelectedSystemIndex] = useState(null);
+  const [currentSystemName, setSystemName] = useState(null);
   const [currentSubjectName, setSubjectName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const sidebarPosition = useRef(new Animated.Value(-300)).current;
@@ -23,6 +25,7 @@ export default function Configuration() {
   const [content, setContent] = useState(
     "<p> Sélectionnez un sujet pour commencer ! </p>",
   );
+  const [addModalVisible, setAddModalVisible] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -45,14 +48,15 @@ export default function Configuration() {
       setSelectedSystemIndex(null);
     } else {
       setSelectedSystemIndex(index);
+      setSystemName(systems[index].name);
     }
   };
 
-  const loadContent = (subjectName: string) => {
+  const loadContent = (systemName: string) => {
     const content = subjects.find(
-      (subject) => subject.name === subjectName,
+      (system) => system.name === systemName,
     ).rawData;
-    setSubjectName(subjectName);
+    setSubjectName(systemName);
     setContent(content);
   };
 
@@ -66,10 +70,11 @@ export default function Configuration() {
 
   return (
     <View style={styles.container}>
+      <AddSubjectModal modalVisible={addModalVisible} setModalVisible={setAddModalVisible} systemName={currentSystemName}  />
       <Animated.View style={[styles.toggleSiderbar, { transform: [{ translateX: sidebarTogglePosition }] }]}>
-          <Pressable onPress={toggleSidebar}>
-            <Octicons name="three-bars" size={40} color="white" />
-          </Pressable>
+        <Pressable onPress={toggleSidebar}>
+          <Octicons name="three-bars" size={40} color="white" />
+        </Pressable>
       </Animated.View>
       <Animated.View style={[styles.sidebar, {
         transform: [{ translateX: sidebarPosition }]
@@ -78,25 +83,28 @@ export default function Configuration() {
           <Ionicons name="arrow-back" style={{color:"#333"}} size={60} color="white" />
         </Pressable>
         <ScrollView style={styles.systems}>
-          {systems.sort().map((system, index) => (
+          {systems.sort((a, b) => a.name.localeCompare(b.name)).map((system, index) => (
             <View key={index}>
-              <TouchableOpacity onPress={() => toggleSystem(index)}>
+              <Pressable onPress={() => toggleSystem(index)}>
                 <Text style={styles.system}> {system.name} </Text>
-              </TouchableOpacity>
+              </Pressable>
               {selectedSystemIndex === index && (
                 <View style={styles.subject}>
                   {system.subjects &&
                     system.subjects.length > 0 &&
                     system.subjects.sort().map((subject, subjectIndex) => (
                       <View key={subjectIndex}>
-                        <TouchableOpacity onPress={() => loadContent(subject)}>
+                        <TouchableOpacity style={{width:"100%"}} onPress={() => loadContent(subject)}>
                           <Text style={styles.subject}> {subject} </Text>
                         </TouchableOpacity>
                       </View>
                     ))}
                   {!system.subjects && (
-                    <Text style={styles.subject}> No subjects found </Text>
+                    <Text style={[styles.subject, {color:"red"}]}> Pas de sujets !!! </Text>
                   )}
+                  <Pressable onPress={() => setAddModalVisible(!addModalVisible)}>
+                    <Text style={[styles.subject, {color: "purple"}]}> Ajouter + </Text>
+                  </Pressable>
                 </View>
               )}
             </View>
@@ -104,8 +112,8 @@ export default function Configuration() {
         </ScrollView>
       </Animated.View>
       <View style={styles.contentContainer}>
-        {currentSubjectName && <Text style={styles.subjectTitle}>{currentSubjectName}</Text> }
-        {currentSubjectName && <RichTextEditor content={content} onUpdate={setContent} /> }
+        <Text style={styles.subjectTitle}>{currentSubjectName}</Text>
+        <RichTextEditor key={currentSubjectName} content={content} onUpdate={setContent} />
         {currentSubjectName &&
           subjects.find((subject) => subject.name === currentSubjectName)
             .rawData !== content && (
@@ -124,7 +132,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     height: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#f7f7f9",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -136,9 +144,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#f5f5f5",
     padding: 10,
     left: 0,
     top: 0,
+    zIndex: 3,
+
   },
   logoContainer: {
     width: "100%",
@@ -155,9 +166,9 @@ const styles = StyleSheet.create({
   },
   systems: {
     width: "100%",
-    height: "85%",
   },
   system: {
+    width:"100%",
     fontSize: 25,
     paddingVertical: 20,
     color: "black",
@@ -173,7 +184,6 @@ const styles = StyleSheet.create({
   subjectTitle: {
     padding: 10,
     fontSize: 40,
-    fontFamily: "Roman",
     color: "black",
   },
   contentContainer: {

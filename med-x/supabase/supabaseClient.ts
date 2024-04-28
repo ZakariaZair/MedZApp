@@ -1,6 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { System } from "../common/interfaces";
-import { Subject } from "../common/interfaces";
+import { Subject, System } from "../common/interfaces";
 const NEXT_PUBLIC_SUPABASE_URL = "https://pjadtpxqyfglyqudlzyp.supabase.co";
 const NEXT_PUBLIC_SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBqYWR0cHhxeWZnbHlxdWRsenlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg4MTg2MDIsImV4cCI6MjAyNDM5NDYwMn0.0lzXa7BKsO3S_G53D5uinWCH__Vm0hIfuprFuAXk6R8";
@@ -38,4 +37,38 @@ export async function modify(
     return null;
   }
   return data;
+}
+
+export async function addSubjectToSystem(systemName: string, newSubjectName: string): Promise<Subject | null> {
+  let { data: systemData } = await supabase
+     .from('system')
+     .select('subjects')
+     .eq('name', systemName)
+     .single();
+
+  const currentSubjects = systemData.subjects || [];
+  const updatedSubjects = [...currentSubjects, newSubjectName];
+
+  const { error: updateError } = await supabase
+    .from('system')
+    .update({ subjects: updatedSubjects })
+    .eq('name', systemName);
+
+  if (updateError) {
+    console.error('Error updating system:', updateError);
+  }
+
+  const { data: subjectData, error: subjectError } = await supabase
+    .from('subject')
+    .insert([
+      { name: newSubjectName, rawData: '' },
+    ])
+    .single();
+
+  if (subjectError) {
+    console.error('Error inserting new subject:', subjectError);
+    return null;
+  }
+
+  return subjectData as any;
 }
