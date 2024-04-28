@@ -114,7 +114,7 @@ const MenuBar = ({ editor }) => {
       >
         🟨
       </button>
-      <button
+      /*<button
         onClick={() => editor.chain().focus().setColor("#958DF1").run()}
         className={
           editor.isActive("textStyle", { color: "#958DF1" }) ? "is-active" : ""
@@ -122,6 +122,7 @@ const MenuBar = ({ editor }) => {
       >
         🟣
       </button>
+      */
       <div style={{ height: "100%", fontSize: "3em", marginRight: 5 }}>|</div>
       <button onClick={addLink}>link</button>
       <button onClick={removeLink}>unlink</button>
