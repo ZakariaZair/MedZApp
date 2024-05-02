@@ -86,13 +86,13 @@ export default function Configuration() {
           {systems.sort((a, b) => a.name.localeCompare(b.name)).map((system, index) => (
             <View key={index}>
               <Pressable onPress={() => toggleSystem(index)}>
-                <Text style={styles.system}> {system.name} </Text>
+                <Text style={[styles.system, {backgroundColor: selectedSystemIndex === index ? "#00000044" : null}]}> {system.name} </Text>
               </Pressable>
               {selectedSystemIndex === index && (
                 <View style={styles.subject}>
                   {system.subjects &&
                     system.subjects.length > 0 &&
-                    system.subjects.sort().map((subject, subjectIndex) => (
+                    system.subjects.map((subject, subjectIndex) => (
                       <View key={subjectIndex}>
                         <TouchableOpacity style={{width:"100%"}} onPress={() => loadContent(subject)}>
                           <Text style={styles.subject}> {subject} </Text>
@@ -103,7 +103,7 @@ export default function Configuration() {
                     <Text style={[styles.subject, {color:"red"}]}> Pas de sujets !!! </Text>
                   )}
                   <Pressable onPress={() => setAddModalVisible(!addModalVisible)}>
-                    <Text style={[styles.subject, {color: "purple"}]}> Ajouter + </Text>
+                    <Text style={[styles.subject, {color: "#00035B"}]}> Ajouter + </Text>
                   </Pressable>
                 </View>
               )}

@@ -15,7 +15,7 @@ export default function Subject() {
   const { subjectName } = useLocalSearchParams<{ subjectName: string }>();
   const { systems, subjects } = React.useContext(SystemsContext);
   const subject = subjects.find((subject) => subject.name === subjectName);
-  const system = systems.find((system) => system.subjects.find((subject) =>  subject === subjectName ));
+  const system = systems.find((system) => system.subjects && system.subjects.find((subject: string) =>  subject === subjectName ));
 
   const navigation = useNavigation();
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Subject() {
   const source = {
     html: subject
       ? subject.rawData
-      : "<p>Error - Reload app or call assistance</p>",
+      : "<p>Error - Reload app or call for assistance</p>",
   };
 
   return (

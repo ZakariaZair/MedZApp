@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.med-x",
-      "buildNumber": "2"
+      "buildNumber": "3"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,6 +29,9 @@
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#ffffff"
+    },
+    "experiments": {
+      "baseUrl": "/MedXApp"
     },
     "web": {
       "bundler": "metro",

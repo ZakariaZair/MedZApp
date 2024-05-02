@@ -1,12 +1,12 @@
 import { router } from "expo-router";
 import React from "react";
 import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
+    Image,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
 } from "react-native";
 import Logo from "../../assets/images/white_logo_nobg.png";
 import { SystemsContext } from "../../common/interfaces";
@@ -21,7 +21,7 @@ export default function Main() {
         <Text style={styles.title}>MedXNotes</Text>
       </View>
       <ScrollView>
-        {systems.map((system, index) => (
+        {systems.sort((a, b) => a.name.localeCompare(b.name)).map((system, index) => (
           <Pressable
             key={index}
             onPress={() => router.push(`/systems/${system.name}`)}

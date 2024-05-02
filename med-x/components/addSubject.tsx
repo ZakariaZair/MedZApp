@@ -8,12 +8,12 @@ const AddSubjectModal = ({ modalVisible, setModalVisible, systemName }) => {
   const { refreshData } = React.useContext(SystemsContext);
   const [newSubjectName, setNewSubjectName] = useState("");
   const addSubject = () => {
-    console.log("Add subject");
     if (newSubjectName === "") {
       return;
     }
+    console.log("Add subject");
 
-    addSubjectToSystem(systemName, newSubjectName).then(() => {
+    addSubjectToSystem(systemName, newSubjectName.trim()).then(() => {
       refreshData();
     });
     setModalVisible(false);
@@ -35,7 +35,7 @@ const AddSubjectModal = ({ modalVisible, setModalVisible, systemName }) => {
             <Text style={{fontSize: 30, fontWeight: "bold"}}>Ajouter un sujet</Text>
             <TextInput
               style={{height: 40, width: "80%", borderColor: 'gray', borderWidth: 1, borderRadius: 10, margin: 10}}
-              onChangeText={text => setNewSubjectName(text)}
+              onChangeText={text => setNewSubjectName(text.trim())}
               placeholder="Nom du sujet"
             />
           </View>

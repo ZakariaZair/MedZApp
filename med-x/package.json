@@ -7,7 +7,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "deploy": "npx expo export --platform web && gh-pages -d dist",
+    "deploy": "expo export -p web && gh-pages -t -d dist",
     "deployOnly": "gh-pages -d dist"
   },
   "homepage": "https://zakariazair.github.io/MedXApp/",
@@ -16,6 +16,7 @@
     "@supabase/supabase-js": "^2.39.7",
     "@tiptap/extension-highlight": "^2.2.4",
     "@tiptap/extension-link": "^2.2.4",
+    "@tiptap/extension-underline": "^2.3.0",
     "@tiptap/react": "^2.2.4",
     "@tiptap/starter-kit": "^2.2.4",
     "@types/react": "~18.2.45",
