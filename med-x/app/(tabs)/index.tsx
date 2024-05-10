@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Logo from "../../assets/images/white_logo_nobg.png";
 import { SystemsContext } from "../../common/interfaces";
+import systemIcons from "../../components/systems_icons";
 
 export default function Main() {
   const { systems } = React.useContext(SystemsContext);
@@ -27,7 +28,8 @@ export default function Main() {
             onPress={() => router.push(`/systems/${system.name}`)}
             style={styles.system}
           >
-            <Text style={styles.systemName}>{system.name}</Text>
+            <Image source={{uri: systemIcons.icons.find(icon => icon.name == system.name).link, cache: 'only-if-cached'}} style={{width: 40, height: 40}} />
+            <Text style={styles.systemName}>   {system.name}</Text>
           </Pressable>
         ))}
       </ScrollView>
@@ -69,6 +71,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "lightgrey",
     paddingBottom: 10,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
   systemName: {
     fontSize: 18,
@@ -86,13 +91,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     opacity: 1,
   },
+  logo: {
+    width: 30,
+    height: 30,
+  },
   title: {
     fontSize: 18,
     fontWeight: "bold",
     color: "white",
-  },
-  logo: {
-    width: 60,
-    height: 60,
   },
 });

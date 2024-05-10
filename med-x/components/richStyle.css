@@ -15,13 +15,12 @@
 /* This targets the editor content area */
 .ProseMirror {
     padding: 4px 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 2px solid #a0a0a0;
+    border-radius: 1px;
     margin-left: 15%;
     margin-right: 15%;
     background-color: #fff;
     color: #000;
-    border-color: #e0e0e0;
     height: 100%;
     max-height: 590px; /* Maximum height before scrolling */
     max-width: 900px;
@@ -35,7 +34,7 @@
 
 .ProseMirror-menuitem-active {
     background-color: #e4e4e4;
-    border-radius: 4px;
+    border-radius: 1px;
 }
 
 /* This targets the selected text */
@@ -48,30 +47,38 @@
     border: 0.1px solid black;
     border-radius: 10px;
     margin-bottom: 10px;
-    padding: 2px 25px; /* Some padding around the buttons */
-    display: flex; /* Align buttons in a row */
+    padding: 2px 25px;
+    display: flex;
     align-items: center;
-    justify-content: center; /* Center the buttons */
+    justify-content: center;
+}
+
+.menu-bar div {
+    margin-top: 5px;
 }
 
 .menu-bar button {
     height: 70%;
     width: 32px;
     text-align: center;
-    background-color: #e4e4e4;
-    border: 1px solid #d0d0d0; /* Light grey border */
-    border-radius: 3px; /* Rounded corners */
-    padding: 5px 10px; /* Padding inside the buttons */
-    margin-right: 5px; /* Space between buttons */
-    cursor: pointer; /* Pointer cursor on hover */
-    outline: none; /* Remove outline */
-    color: #000000a4;
+    background-color: #e4e4e400;
+    border: 0px solid #d0d0d0;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    outline: none;
+    color: #000000;
 }
 
-.menu-bar button.is-active,
+.menu-bar button.is-active{
+    color: #000;
+    background-color: #0062ff44;
+}
+
 .menu-bar button:hover {
     color: #000;
-    background-color: #e4e4e4; /* Light grey background for active/hover state */
+    background-color: #00000055;
 }
 
 .floating-bar {

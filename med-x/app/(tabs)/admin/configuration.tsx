@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     paddingVertical: 20,
     color: "black",
-    borderBottomWidth: 5,
+    borderBottomWidth: 1.4,
     borderBottomColor: "#000A4D",
   },
   subject: {
@@ -194,19 +194,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   save: {
-    backgroundColor: "black",
+    backgroundColor: "grey",
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
     borderWidth: 2,
-    borderColor: "grey",
-    borderStyle: "solid",
+    borderColor: "black",
   },
   saveText: {
     color: "white",
     fontWeight: "bold",
-    letterSpacing: 2,
-    fontSize: 40,
+    fontSize: 60,
+    textShadowColor: "black",
+    textShadowRadius: 10,
   },
   toggleSiderbar: {
     position: 'absolute',

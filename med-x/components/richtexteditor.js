@@ -40,18 +40,18 @@ const MenuBar = ({ editor }) => {
   return (
     <div className="menu-bar">
       <button
-        style={{ fontSize: "1.5em" }}
+        style={{ fontSize: "1.6em", wordSpacing: 0, lineHeight: 0, boxSizing: 0 }}
         onClick={() => editor.chain().focus().undo().run()}
         disabled={!editor.can().chain().focus().undo().run()}
       >
-        ↜
+        &#x27F2;
       </button>
       <button
-        style={{ fontSize: "1.5em" }}
+        style={{ fontSize: "1.6em", wordSpacing: 0, lineHeight: 0, boxSizing: 0 }}
         onClick={() => editor.chain().focus().redo().run()}
         disabled={!editor.can().chain().focus().redo().run()}
       >
-        ↝
+        &#x27F3;
       </button>
       <div style={{ height: "100%", fontSize: "2em", marginRight: 5, opacity: 0.2 }}>|</div>
       <button
@@ -107,42 +107,22 @@ const MenuBar = ({ editor }) => {
       >
         h3
       </button>
-      <select onChange={(e) => setFontSize(e.target.value)}>
-              <option value="12">12</option>
-              <option value="14">14</option>
-              <option value="16">16</option>
-              <option value="18">18</option>
-              <option value="20">20</option>
-              <option value="24">24</option>
-              <option value="28">28</option>
-              <option value="32">32</option>
-              <option value="36">36</option>
-      </select>
       <div style={{ height: "100%", fontSize: "2em", marginRight: 5, opacity: 0.2 }}>|</div>
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={editor.isActive("bulletList") ? "is-active" : ""}
       >
-        -
+        &#x2022;
       </button>
       <button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={editor.isActive("orderedList") ? "is-active" : ""}
       >
-        1
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={editor.isActive("blockquote") ? "is-active" : ""}
-      >
-        q
+        1.
       </button>
       <div style={{ height: "100%", fontSize: "2em", marginRight: 5, opacity: 0.2 }}>|</div>
       <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
-        horizontal rule
-      </button>
-      <button onClick={() => editor.chain().focus().setHardBreak().run()}>
-        hard break
+        &#x2015;
       </button>
       <button
         onClick={() => editor.chain().focus().toggleHighlight().run()}
@@ -152,16 +132,8 @@ const MenuBar = ({ editor }) => {
       >
         🟨
       </button>
-      <button
-        onClick={() => editor.chain().focus().setColor("#958DF1").run()}
-        className={
-          editor.isActive("textStyle", { color: "#958DF1" }) ? "is-active" : ""
-        }
-      >
-        🟣
-      </button>
       <div style={{ height: "100%", fontSize: "2em", marginRight: 5, opacity: 0.2 }}>|</div>
-      <button onClick={addLink}>hyperlien</button>
+      <button onClick={addLink}>link</button>
       <button onClick={removeLink}>unlink</button>
     </div>
   );
