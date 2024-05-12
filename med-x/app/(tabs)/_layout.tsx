@@ -6,7 +6,14 @@ import {
 } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from 'react';
-import { Platform } from "react-native";
+import {
+    Image,
+    Platform,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
+import Logo from "../../assets/images/white_logo_nobg.png";
 
 export default function TabsLayout() {
 
@@ -16,9 +23,16 @@ export default function TabsLayout() {
         key="index"
         name="index"
         options={{
-          headerTitle: "Systems",
+          headerStyle: { backgroundColor: "#00035B" },
+          headerTitle: () => {
+            return (
+              <View style={styles.logoContainer}>
+                <Image source={Logo} style={styles.logo} />
+                <Text style={styles.title}>MedXNotes</Text>
+              </View>
+            );
+          },
           title: "",
-          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Ionicons
               name={"home"}
@@ -121,3 +135,23 @@ export default function TabsLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  logoContainer: {
+    backgroundColor: "#00035B",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    opacity: 1,
+  },
+  logo: {
+    width: 35,
+    height: 35,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "white",
+  },
+});

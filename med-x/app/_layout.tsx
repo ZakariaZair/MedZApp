@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
+import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StatusBar } from "react-native";
 import { Subject, System, SystemsContext } from "../common/interfaces";
 import { fetchSubjects, fetchSystems } from "../supabase/supabaseClient";
 
@@ -37,7 +37,7 @@ export default function RootLayout() {
 
   return (
     <SystemsContext.Provider value={{ systems, subjects, refreshData }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar style="light" />
       <Stack>
         <Stack.Screen
           name="(tabs)"

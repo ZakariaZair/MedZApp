@@ -8,7 +8,6 @@ import {
     Text,
     View,
 } from "react-native";
-import Logo from "../../assets/images/white_logo_nobg.png";
 import { SystemsContext } from "../../common/interfaces";
 import systemIcons from "../../components/systems_icons";
 
@@ -17,10 +16,6 @@ export default function Main() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image source={Logo} style={styles.logo} />
-        <Text style={styles.title}>MedXNotes</Text>
-      </View>
       <ScrollView>
         {systems.sort((a, b) => a.name.localeCompare(b.name)).map((system, index) => (
           <Pressable
@@ -28,7 +23,7 @@ export default function Main() {
             onPress={() => router.push(`/systems/${system.name}`)}
             style={styles.system}
           >
-            <Image source={{uri: systemIcons.icons.find(icon => icon.name == system.name).link, cache: 'only-if-cached'}} style={{width: 40, height: 40}} />
+            <Image source={{uri: systemIcons.icons.find(icon => icon.name == system.name).link, cache: "default"}} style={{width: 40, height: 40}} />
             <Text style={styles.systemName}>   {system.name}</Text>
           </Pressable>
         ))}
@@ -42,27 +37,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     padding: "auto",
-  },
-  modal: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalTitle: {
-    fontSize: 60,
-    marginBottom: 20,
-  },
-  modalInput: {
-    width: "50%",
-    padding: 10,
-    marginBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "lightgrey",
-  },
-  connexion: {
-    borderTopWidth: 1,
-    borderTopColor: "lightgrey",
-    fontSize: 20,
   },
   system: {
     padding: 10,
