@@ -1,18 +1,20 @@
 import { router } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Image,
     Pressable,
-    ScrollView,
-    StyleSheet,
+    ScrollView, StatusBar, StyleSheet,
     Text,
-    View,
+    View
 } from "react-native";
 import { SystemsContext } from "../../common/interfaces";
 import systemIcons from "../../components/systems_icons";
 
 export default function Main() {
   const { systems } = React.useContext(SystemsContext);
+  useEffect(() => {
+    StatusBar.setBarStyle('light-content');
+  }, [systems]);
 
   return (
     <View style={styles.container}>

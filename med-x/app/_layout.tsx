@@ -1,5 +1,4 @@
 import { Stack } from "expo-router";
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Subject, System, SystemsContext } from "../common/interfaces";
 import { fetchSubjects, fetchSystems } from "../supabase/supabaseClient";
@@ -7,6 +6,7 @@ import { fetchSubjects, fetchSystems } from "../supabase/supabaseClient";
 export default function RootLayout() {
   const [systems, setSystems] = useState<System[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
+
   const refreshData = () => {
     fetchSystems()
       .then(setSystems)
@@ -37,7 +37,6 @@ export default function RootLayout() {
 
   return (
     <SystemsContext.Provider value={{ systems, subjects, refreshData }}>
-      <StatusBar style="light" />
       <Stack>
         <Stack.Screen
           name="(tabs)"

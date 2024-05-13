@@ -18,7 +18,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.med-x",
-      "buildNumber": "4"
+      "buildNumber": "7",
+      "statusBarStyle": "light-content",
+      "infoPlist": {
+        "UIViewControllerBasedStatusBarAppearance": false
+      }
     },
     "android": {
       "adaptiveIcon": {
