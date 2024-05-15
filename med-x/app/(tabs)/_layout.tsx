@@ -23,12 +23,12 @@ export default function TabsLayout() {
         key="index"
         name="index"
         options={{
-          headerStyle: { backgroundColor: "#00035B" },
+          headerStyle: { backgroundColor: "#4788C7" },
           headerTitle: () => {
             return (
               <View style={styles.logoContainer}>
                 <Image source={Logo} style={styles.logo} />
-                <Text style={styles.title}>MedXNotes</Text>
+                <Text style={styles.title}>MedZNotes</Text>
               </View>
             );
           },
@@ -37,7 +37,7 @@ export default function TabsLayout() {
             <Ionicons
               name={"home"}
               size={focused ? 22 : 18 }
-              color={focused ? "#0009BB" : "black"}
+              color={focused ? "#4788C7" : "black"}
             />
           ),
         }}
@@ -49,31 +49,51 @@ export default function TabsLayout() {
           headerTitle: "Barre de recherche",
           title: "",
           headerTitleStyle: { color: "white" },
-          headerStyle: { backgroundColor: "#00035B"},
+          headerStyle: { backgroundColor: "#4788C7"},
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
               name={"search"}
               size={focused ? 22 : 18 }
-              color={focused ? "#0009BB" : "black"}
+              color={focused ? "#4788C7" : "black"}
             />
           ),
         }}
       />
       <Tabs.Screen
         key="about"
-        name="about"
+        name="about/index"
         options={{
           headerTitle: "À propos",
           title: "",
           headerTitleStyle: { color: "white" },
-          headerStyle: { backgroundColor: "#00035B" },
+          headerStyle: { backgroundColor: "#4788C7" },
           tabBarIcon: ({ focused }) => (
             <Entypo
               name={"info-with-circle"}
               size={focused ? 22 : 18 }
-              color={focused ? "#0009BB" : "black"}
+              color={focused ? "#4788C7" : "black"}
             />
           ),
+        }}
+      />
+      <Tabs.Screen
+        key="team"
+        name="about/team"
+        options={{
+          title: "Notre équipe",
+          href: null,
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#4788C7" },
+        }}
+      />
+      <Tabs.Screen
+        key="copyright"
+        name="about/copyright"
+        options={{
+          title: "Références",
+          href: null,
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#4788C7" },
         }}
       />
       <Tabs.Screen
@@ -138,7 +158,7 @@ export default function TabsLayout() {
 
 const styles = StyleSheet.create({
   logoContainer: {
-    backgroundColor: "#00035B",
+    backgroundColor: "#00000000",
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
@@ -146,8 +166,9 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
   logo: {
-    width: 35,
-    height: 35,
+    width: 37,
+    height: 37,
+    marginRight: 10,
   },
   title: {
     fontSize: 18,

@@ -106,7 +106,7 @@ export default function Search() {
       }
       {search.length <= 0 &&
         <View style={styles.noContentContainer}>
-          <Image source={Logo} style={{ width: 200, height: 200, opacity: 0.1 }} />
+          <Image source={Logo} style={{ width: 360, height: 360, opacity: 0.1 }} />
           <Text style={styles.noContentPlaceholder}>Recherchez un système ou un sujet</Text>
         </View>
       }
@@ -174,14 +174,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   noContentContainer: {
-    height: "70%",
+    height: "80%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
   noContentPlaceholder: {
-    fontSize: 10,
+    fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
     opacity: 0.3,

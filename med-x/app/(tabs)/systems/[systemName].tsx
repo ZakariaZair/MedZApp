@@ -18,7 +18,7 @@ export default function System() {
         </Pressable>
       ),
       headerTintColor: "#fff",
-      headerStyle: { backgroundColor: "#00035B" },
+      headerStyle: { backgroundColor: "#4788C7" },
     });
   }, [navigation, systemName]);
 

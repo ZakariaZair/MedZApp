@@ -27,7 +27,7 @@ export default function Subject() {
         </Pressable>
       ),
       headerTintColor: "#fff",
-      headerStyle: { backgroundColor: "#00035B" },
+      headerStyle: { backgroundColor: "#4788C7" },
     });
   }, [navigation, subjectName]);
 

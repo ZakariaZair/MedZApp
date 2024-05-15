@@ -118,7 +118,7 @@ export default function Configuration() {
           subjects.find((subject) => subject.name === currentSubjectName)
             .rawData !== content && (
             <Pressable style={styles.save} onPress={save}>
-              <Text style={styles.saveText}>Save</Text>
+              <Text style={styles.saveText}>Sauvegarder</Text>
             </Pressable>
           )}
       </View>
@@ -149,7 +149,6 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     zIndex: 3,
-
   },
   logoContainer: {
     width: "100%",

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function About() {
+export default function Team() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -15,21 +15,17 @@ export default function About() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
+
   },
   title: {
-    fontSize: 15,
-    textAlign: "center",
+    fontSize: 20,
     fontWeight: "bold",
+    textAlign: "center",
+    marginVertical: 20,
   },
   subtitle: {
-    fontSize: 8,
+    fontSize: 16,
     textAlign: "center",
-    fontStyle: "italic",
-    borderTopColor: "black",
-    borderTopWidth: 5,
+    marginVertical: 10,
   },
 });

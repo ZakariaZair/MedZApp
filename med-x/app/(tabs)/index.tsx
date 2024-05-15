@@ -55,22 +55,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  logoContainer: {
-    backgroundColor: "#00035B",
-    width: "100%",
-    paddingRight: "auto",
-    paddingLeft: "auto",
-    paddingTop: 40,
-    paddingBottom: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    opacity: 1,
-  },
-  logo: {
-    width: 30,
-    height: 30,
-  },
   title: {
     fontSize: 18,
     fontWeight: "bold",
