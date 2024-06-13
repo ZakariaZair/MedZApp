@@ -15,7 +15,9 @@ export default function Team() {
 
 const styles = StyleSheet.create({
   container: {
-
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 20,

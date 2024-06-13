@@ -60,8 +60,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "lightgrey",
   },
   title: {
-    fontSize: 20,
+    fontSize: 17,
     textAlign: "center",
+    fontWeight: "bold",
   },
   subtitle: {
     fontSize: 8,

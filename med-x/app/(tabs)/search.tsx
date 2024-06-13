@@ -1,13 +1,13 @@
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-    Image,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
 } from "react-native";
 import Logo from "../../assets/icon.png";
 import { SystemsContext } from "../../common/interfaces";
@@ -15,6 +15,7 @@ import { SystemsContext } from "../../common/interfaces";
 export default function Search() {
   const { systems } = React.useContext(SystemsContext);
   const [search, setSearch] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleSearch = (text: string) => {
     setSearch(text.trim());
@@ -86,11 +87,13 @@ export default function Search() {
   return (
     <View style={styles.container}>
       <TextInput
-        style={styles.searchBar}
+        style={[styles.searchBar, isFocused && styles.searchBarFocused]}
         autoCorrect={false}
         autoCapitalize="none"
         placeholder="Recherchez"
         onChangeText={handleSearch}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       ></TextInput>
       {search.length > 0 &&
         <ScrollView style={styles.searchResults} contentContainerStyle={styles.contentContainer}>
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
-  contentContainer:{
+  contentContainer: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -136,6 +139,11 @@ const styles = StyleSheet.create({
     borderWidth: 0.4,
     borderRadius: 5,
     margin: 5,
+  },
+  searchBarFocused: {
+    borderColor: "#4788C7",
+    borderWidth: 2,
+    elevation: 2,
   },
   searchResults: {
     width: "100%",

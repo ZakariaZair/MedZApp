@@ -4,9 +4,16 @@ import {
   Ionicons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { Tabs, router } from "expo-router";
 import React from "react";
-import { Image, Platform, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Logo from "../../assets/images/white_logo_nobg.png";
 
 export default function TabsLayout() {
@@ -77,6 +84,11 @@ export default function TabsLayout() {
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("about")}>
+              <Text style={styles.back}>Retour</Text>
+            </Pressable>
+          ),
         }}
       />
       <Tabs.Screen
@@ -87,6 +99,11 @@ export default function TabsLayout() {
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("about")}>
+              <Text style={styles.back}>Retour</Text>
+            </Pressable>
+          ),
         }}
       />
       <Tabs.Screen
@@ -97,6 +114,11 @@ export default function TabsLayout() {
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("about")}>
+              <Text style={styles.back}>Retour</Text>
+            </Pressable>
+          ),
         }}
       />
       <Tabs.Screen
@@ -107,6 +129,11 @@ export default function TabsLayout() {
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("about")}>
+              <Text style={styles.back}>Retour</Text>
+            </Pressable>
+          ),
         }}
       />
       <Tabs.Screen
@@ -117,6 +144,11 @@ export default function TabsLayout() {
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("about")}>
+              <Text style={styles.back}>Retour</Text>
+            </Pressable>
+          ),
         }}
       />
       <Tabs.Screen
@@ -127,6 +159,11 @@ export default function TabsLayout() {
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("about")}>
+              <Text style={styles.back}>Retour</Text>
+            </Pressable>
+          ),
         }}
       />
       <Tabs.Screen
@@ -207,5 +244,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "white",
+  },
+  back: {
+    color: "#fff",
+    fontSize: 16,
+    marginLeft: 10,
   },
 });
