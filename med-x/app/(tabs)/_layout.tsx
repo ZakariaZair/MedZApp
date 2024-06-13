@@ -1,22 +1,15 @@
 import {
-    Entypo,
-    FontAwesome5,
-    Ionicons,
-    MaterialIcons,
+  Entypo,
+  FontAwesome5,
+  Ionicons,
+  MaterialIcons,
 } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import React from 'react';
-import {
-    Image,
-    Platform,
-    StyleSheet,
-    Text,
-    View,
-} from "react-native";
+import React from "react";
+import { Image, Platform, StyleSheet, Text, View } from "react-native";
 import Logo from "../../assets/images/white_logo_nobg.png";
 
 export default function TabsLayout() {
-
   return (
     <Tabs>
       <Tabs.Screen
@@ -36,7 +29,7 @@ export default function TabsLayout() {
           tabBarIcon: ({ focused }) => (
             <Ionicons
               name={"home"}
-              size={focused ? 22 : 18 }
+              size={focused ? 22 : 18}
               color={focused ? "#4788C7" : "black"}
             />
           ),
@@ -49,11 +42,11 @@ export default function TabsLayout() {
           headerTitle: "Barre de recherche",
           title: "",
           headerTitleStyle: { color: "white" },
-          headerStyle: { backgroundColor: "#4788C7"},
+          headerStyle: { backgroundColor: "#4788C7" },
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
               name={"search"}
-              size={focused ? 22 : 18 }
+              size={focused ? 22 : 18}
               color={focused ? "#4788C7" : "black"}
             />
           ),
@@ -70,10 +63,20 @@ export default function TabsLayout() {
           tabBarIcon: ({ focused }) => (
             <Entypo
               name={"info-with-circle"}
-              size={focused ? 22 : 18 }
+              size={focused ? 22 : 18}
               color={focused ? "#4788C7" : "black"}
             />
           ),
+        }}
+      />
+      <Tabs.Screen
+        key="more"
+        name="about/more"
+        options={{
+          title: "Plus d'informations",
+          href: null,
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#4788C7" },
         }}
       />
       <Tabs.Screen
@@ -87,10 +90,40 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        key="collab"
+        name="about/collab"
+        options={{
+          title: "Auteurs et collaboration",
+          href: null,
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#4788C7" },
+        }}
+      />
+      <Tabs.Screen
         key="copyright"
         name="about/copyright"
         options={{
           title: "Références",
+          href: null,
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#4788C7" },
+        }}
+      />
+      <Tabs.Screen
+        key="terms"
+        name="about/terms"
+        options={{
+          title: "Termes d'utilisation",
+          href: null,
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#4788C7" },
+        }}
+      />
+      <Tabs.Screen
+        key="no_res"
+        name="about/no_res"
+        options={{
+          title: "Avis de non-responsabilité",
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },

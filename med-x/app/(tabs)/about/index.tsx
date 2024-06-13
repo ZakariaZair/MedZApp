@@ -5,11 +5,41 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 export default function About() {
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button} onPress={() => router.push("/about/team")}>
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/about/more")}
+      >
+        <Text style={styles.title}>Plus d'informations</Text>
+      </Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/about/team")}
+      >
         <Text style={styles.title}>Notre équipe</Text>
       </Pressable>
-      <Pressable style={styles.button} onPress={() => router.push("/about/copyright")}>
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/about/collab")}
+      >
+        <Text style={styles.title}>Auteurs et Collaborateurs</Text>
+      </Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/about/copyright")}
+      >
         <Text style={styles.title}>Références</Text>
+      </Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/about/terms")}
+      >
+        <Text style={styles.title}>Termes d'utilisation</Text>
+      </Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/about/no_res")}
+      >
+        <Text style={styles.title}>Avis de non-responsabilité</Text>
       </Pressable>
     </View>
   );

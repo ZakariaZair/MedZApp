@@ -25,7 +25,7 @@ export default function Main() {
             onPress={() => router.push(`/systems/${system.name}`)}
             style={styles.system}
           >
-            <Image source={{uri: systemIcons.icons.find(icon => icon.name == system.name).link, cache: "default"}} style={{width: 40, height: 40}} />
+            <Image source={{uri: systemIcons.icons.find(icon => icon.name == system.name).link, cache: "default"}} style={styles.systemLogo} />
             <Text style={styles.systemName}>   {system.name}</Text>
           </Pressable>
         ))}
@@ -54,6 +54,10 @@ const styles = StyleSheet.create({
   systemName: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  systemLogo: {
+    width: 40,
+    height: 40,
   },
   title: {
     fontSize: 18,

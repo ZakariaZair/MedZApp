@@ -1,12 +1,12 @@
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect } from "react";
 import {
-    Dimensions,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  Dimensions,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import RenderHTML from "react-native-render-html";
 import { SystemsContext } from "../../../common/interfaces";
@@ -15,7 +15,11 @@ export default function Subject() {
   const { subjectName } = useLocalSearchParams<{ subjectName: string }>();
   const { systems, subjects } = React.useContext(SystemsContext);
   const subject = subjects.find((subject) => subject.name === subjectName);
-  const system = systems.find((system) => system.subjects && system.subjects.find((subject: string) =>  subject === subjectName ));
+  const system = systems.find(
+    (system) =>
+      system.subjects &&
+      system.subjects.find((subject: string) => subject === subjectName),
+  );
 
   const navigation = useNavigation();
   useEffect(() => {
@@ -43,6 +47,7 @@ export default function Subject() {
         <View style={styles.dataContainer}>
           <RenderHTML
             contentWidth={Dimensions.get("window").width}
+            tagsStyles={tagsStyles}
             source={source}
           />
         </View>
@@ -69,3 +74,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
+
+const tagsStyles = {
+  ul: {
+    paddingLeft: 15,
+  },
+  p: {
+    margin: 0,
+    padding: 0,
+  },
+};
