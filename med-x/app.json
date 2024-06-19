@@ -12,17 +12,12 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.med-x",
-      "buildNumber": "8",
-      "statusBarStyle": "light-content",
-      "infoPlist": {
-        "UIViewControllerBasedStatusBarAppearance": false
-      }
+      "ascAppId": "6479570249",
+      "buildNumber": "9"
     },
     "android": {
       "adaptiveIcon": {
@@ -42,9 +37,7 @@
       "favicon": "./assets/favicon.png",
       "publicPath": "/MedXApp/"
     },
-    "plugins": [
-      "expo-router"
-    ],
+    "plugins": ["expo-router"],
     "extra": {
       "router": {
         "origin": false
