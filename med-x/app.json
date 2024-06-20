@@ -35,7 +35,7 @@
     "web": {
       "bundler": "metro",
       "favicon": "./assets/favicon.png",
-      "publicPath": "/MedXApp/"
+      "publicPath": "/MedZApp/"
     },
     "plugins": ["expo-router"],
     "extra": {
