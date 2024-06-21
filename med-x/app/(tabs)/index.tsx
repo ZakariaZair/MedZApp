@@ -1,11 +1,13 @@
 import { router } from "expo-router";
 import React, { useEffect } from "react";
 import {
-    Image,
-    Pressable,
-    ScrollView, StatusBar, StyleSheet,
-    Text,
-    View
+  Image,
+  Pressable,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { SystemsContext } from "../../common/interfaces";
 import systemIcons from "../../components/systems_icons";
@@ -13,22 +15,32 @@ import systemIcons from "../../components/systems_icons";
 export default function Main() {
   const { systems } = React.useContext(SystemsContext);
   useEffect(() => {
-    StatusBar.setBarStyle('light-content');
+    StatusBar.setBarStyle("light-content");
   }, [systems]);
 
   return (
     <View style={styles.container}>
       <ScrollView>
-        {systems.sort((a, b) => a.name.localeCompare(b.name)).map((system, index) => (
-          <Pressable
-            key={index}
-            onPress={() => router.push(`/systems/${system.name}`)}
-            style={styles.system}
-          >
-            <Image source={{uri: systemIcons.icons.find(icon => icon.name == system.name).link, cache: "default"}} style={styles.systemLogo} />
-            <Text style={styles.systemName}>   {system.name}</Text>
-          </Pressable>
-        ))}
+        {systems
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((system, index) => (
+            <Pressable
+              key={index}
+              onPress={() => router.push(`/systems/${system.name}`)}
+              style={styles.system}
+            >
+              <Image
+                source={{
+                  uri: systemIcons.icons.find(
+                    (icon) => icon.name == system.name,
+                  ).link,
+                  cache: "default",
+                }}
+                style={styles.systemLogo}
+              />
+              <Text style={styles.systemName}> {system.name}</Text>
+            </Pressable>
+          ))}
       </ScrollView>
     </View>
   );
