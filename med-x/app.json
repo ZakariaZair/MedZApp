@@ -30,7 +30,7 @@
       "backgroundColor": "#ffffff"
     },
     "experiments": {
-      "baseUrl": "/MedXApp"
+      "baseUrl": "/MedZApp"
     },
     "web": {
       "bundler": "metro",
