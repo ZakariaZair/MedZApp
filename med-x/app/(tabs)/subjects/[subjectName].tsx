@@ -1,12 +1,12 @@
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect } from "react";
 import {
-  Dimensions,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
+    Dimensions,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
 } from "react-native";
 import RenderHTML from "react-native-render-html";
 import { SystemsContext } from "../../../common/interfaces";
@@ -76,8 +76,12 @@ const styles = StyleSheet.create({
 });
 
 const tagsStyles = {
+  body: {
+    fontFamily: "Arial",
+  },
   ul: {
     paddingLeft: 15,
+    margin: 0,
   },
   p: {
     margin: 0,

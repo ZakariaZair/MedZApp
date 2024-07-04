@@ -37,6 +37,7 @@
       "favicon": "./assets/favicon.png",
       "publicPath": "/MedZApp/"
     },
+    "homepage": "https://zakariazair.github.io/MedZApp",
     "plugins": ["expo-router"],
     "extra": {
       "router": {

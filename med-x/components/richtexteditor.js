@@ -8,6 +8,7 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React from "react";
 import "./richStyle.css";
+import Image from "@tiptap/extension-image";
 
 const MenuBar = ({ editor }) => {
   if (!editor) {
@@ -17,12 +18,11 @@ const MenuBar = ({ editor }) => {
   const addLink = () => {
     const url = window.prompt("Enter the URL");
     if (url) {
-
       editor
         .chain()
         .focus()
         .extendMarkRange("link")
-        .setLink({ href: `${window.location.origin}/subjects/${url}` })
+        .setLink({ href: `myapp://subjects/${url}` })
         .run();
     }
   };
@@ -34,32 +34,55 @@ const MenuBar = ({ editor }) => {
   };
 
   const setFontSize = (size) => {
-      editor.chain().focus().setMark('textStyle', { fontSize: `${size}px` }).run();
+    editor
+      .chain()
+      .focus()
+      .setMark("textStyle", { fontSize: `${size}px` })
+      .run();
   };
 
   return (
     <div className="menu-bar">
       <button
-        style={{ fontSize: "1.6em", wordSpacing: 0, lineHeight: 0, boxSizing: 0 }}
+        style={{
+          fontSize: "1.6em",
+          wordSpacing: 0,
+          lineHeight: 0,
+          boxSizing: 0,
+        }}
         onClick={() => editor.chain().focus().undo().run()}
         disabled={!editor.can().chain().focus().undo().run()}
       >
         &#x27F2;
       </button>
       <button
-        style={{ fontSize: "1.6em", wordSpacing: 0, lineHeight: 0, boxSizing: 0 }}
+        style={{
+          fontSize: "1.6em",
+          wordSpacing: 0,
+          lineHeight: 0,
+          boxSizing: 0,
+        }}
         onClick={() => editor.chain().focus().redo().run()}
         disabled={!editor.can().chain().focus().redo().run()}
       >
         &#x27F3;
       </button>
-      <div style={{ height: "100%", fontSize: "2em", marginRight: 5, opacity: 0.2 }}>|</div>
+      <div
+        style={{
+          height: "100%",
+          fontSize: "2em",
+          marginRight: 5,
+          opacity: 0.2,
+        }}
+      >
+        |
+      </div>
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
         className={editor.isActive("bold") ? "is-active" : ""}
       >
-      <strong>B</strong>
+        <strong>B</strong>
       </button>
       <button
         onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -82,7 +105,16 @@ const MenuBar = ({ editor }) => {
       >
         <s>S</s>
       </button>
-      <div style={{ height: "100%", fontSize: "2em", marginRight: 5, opacity: 0.2 }}>|</div>
+      <div
+        style={{
+          height: "100%",
+          fontSize: "2em",
+          marginRight: 5,
+          opacity: 0.2,
+        }}
+      >
+        |
+      </div>
       <button
         onClick={() => editor.chain().focus().setParagraph().run()}
         className={editor.isActive("paragraph") ? "is-active" : ""}
@@ -107,7 +139,16 @@ const MenuBar = ({ editor }) => {
       >
         h3
       </button>
-      <div style={{ height: "100%", fontSize: "2em", marginRight: 5, opacity: 0.2 }}>|</div>
+      <div
+        style={{
+          height: "100%",
+          fontSize: "2em",
+          marginRight: 5,
+          opacity: 0.2,
+        }}
+      >
+        |
+      </div>
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={editor.isActive("bulletList") ? "is-active" : ""}
@@ -120,21 +161,31 @@ const MenuBar = ({ editor }) => {
       >
         1.
       </button>
-      <div style={{ height: "100%", fontSize: "2em", marginRight: 5, opacity: 0.2 }}>|</div>
+      <div
+        style={{
+          height: "100%",
+          fontSize: "2em",
+          marginRight: 5,
+          opacity: 0.2,
+        }}
+      >
+        |
+      </div>
       <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
         &#x2015;
       </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHighlight().run()}
-        className={
-          editor.isActive("highlight", { color: "#ffde64" }) ? "is-active" : ""
-        }
+      <div
+        style={{
+          height: "100%",
+          fontSize: "2em",
+          marginRight: 5,
+          opacity: 0.2,
+        }}
       >
-        🟨
-      </button>
-      <div style={{ height: "100%", fontSize: "2em", marginRight: 5, opacity: 0.2 }}>|</div>
+        |
+      </div>
       <button onClick={addLink}>link</button>
-      <button onClick={removeLink}>unlink</button>
+      <button onClick={removeLink}>unli</button>
     </div>
   );
 };
@@ -143,13 +194,16 @@ const RichTextEditor = ({ content, onUpdate }) => {
     extensions: [
       StarterKit.configure({
         keyboardShortcuts: {
-          'Mod-z': () => editor.commands.undo(),
-          'Mod-Shift-z': () => editor.commands.redo(),
-        }
+          "Mod-z": () => editor.commands.undo(),
+          "Mod-Shift-z": () => editor.commands.redo(),
+        },
       }),
       TextStyle,
       Color,
       Link,
+      Image.configure({
+        allowBase64: true,
+      }),
       Underline,
       Highlight.configure({
         multicolor: true,
@@ -159,6 +213,39 @@ const RichTextEditor = ({ content, onUpdate }) => {
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       onUpdate(html);
+    },
+    editorProps: {
+      handleDOMEvents: {
+        paste: (view, event) => {
+          const items = event.clipboardData?.items;
+
+          if (items) {
+            for (let i = 0; i < items.length; i++) {
+              if (items[i].type.indexOf("image") !== -1) {
+                const file = items[i].getAsFile();
+                const reader = new FileReader();
+
+                reader.onload = (readerEvent) => {
+                  const base64Image = readerEvent.target.result;
+                  const transaction = view.state.tr.replaceSelectionWith(
+                    view.state.schema.nodes.image.create({
+                      src: base64Image,
+                    }),
+                  );
+                  view.dispatch(transaction);
+                };
+
+                if (file) {
+                  reader.readAsDataURL(file);
+                }
+                event.preventDefault();
+                return true;
+              }
+            }
+          }
+          return false;
+        },
+      },
     },
   });
 

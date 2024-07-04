@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   saveText: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 60,
+    fontSize: 20,
     textShadowColor: "black",
     textShadowRadius: 10,
   },

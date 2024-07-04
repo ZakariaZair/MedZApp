@@ -15,6 +15,7 @@ import {
   View,
 } from "react-native";
 import Logo from "../../assets/images/white_logo_nobg.png";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function TabsLayout() {
   return (
@@ -23,13 +24,19 @@ export default function TabsLayout() {
         key="index"
         name="index"
         options={{
-          headerStyle: { backgroundColor: "#4788C7" },
-          headerTitle: () => {
+          headerTitle: () => (
+            <View style={styles.logoContainer}>
+              <Image source={Logo} style={styles.logo} />
+              <Text style={styles.title}>MedZNotes</Text>
+            </View>
+          ),
+          headerBackground: () => {
             return (
-              <View style={styles.logoContainer}>
-                <Image source={Logo} style={styles.logo} />
-                <Text style={styles.title}>MedZNotes</Text>
-              </View>
+              <LinearGradient
+                colors={["#4788C7", "#4788C7", "#ffffff"]}
+                locations={[0, 0.952, 1]}
+                style={styles.header}
+              ></LinearGradient>
             );
           },
           title: "",
@@ -228,12 +235,11 @@ export default function TabsLayout() {
 
 const styles = StyleSheet.create({
   logoContainer: {
-    backgroundColor: "#00000000",
-    width: "100%",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
     opacity: 1,
+    marginBottom: 21,
   },
   logo: {
     width: 37,
@@ -244,6 +250,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "white",
+  },
+  header: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
   },
   back: {
     color: "#fff",
