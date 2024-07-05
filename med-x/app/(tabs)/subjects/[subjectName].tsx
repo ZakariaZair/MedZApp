@@ -1,12 +1,12 @@
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect } from "react";
 import {
-    Dimensions,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  Dimensions,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import RenderHTML from "react-native-render-html";
 import { SystemsContext } from "../../../common/interfaces";
@@ -76,15 +76,20 @@ const styles = StyleSheet.create({
 });
 
 const tagsStyles = {
-  body: {
-    fontFamily: "Arial",
+  div: {
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   ul: {
     paddingLeft: 15,
     margin: 0,
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   p: {
     margin: 0,
     padding: 0,
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
 };

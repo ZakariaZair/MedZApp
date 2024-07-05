@@ -6,9 +6,28 @@ import TextStyle from "@tiptap/extension-text-style";
 import Underline from "@tiptap/extension-underline";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Subscript from "@tiptap/extension-subscript";
+import Superscript from "@tiptap/extension-superscript";
+import Image from "@tiptap/extension-image";
 import React from "react";
 import "./richStyle.css";
-import Image from "@tiptap/extension-image";
+
+const ImageResize = Image.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      width: {
+        default: "100",
+        parseHTML: (element) => element.getAttribute("width") || "100",
+        renderHTML: (attributes) => {
+          return {
+            width: attributes.width,
+          };
+        },
+      },
+    };
+  },
+});
 
 const MenuBar = ({ editor }) => {
   if (!editor) {
@@ -184,11 +203,34 @@ const MenuBar = ({ editor }) => {
       >
         |
       </div>
+      <button
+        onClick={() => editor.chain().focus().toggleSubscript().run()}
+        className={editor.isActive("subscript") ? "is-active" : ""}
+      >
+        X<sub>2</sub>
+      </button>
+      <button
+        onClick={() => editor.chain().focus().toggleSuperscript().run()}
+        className={editor.isActive("superscript") ? "is-active" : ""}
+      >
+        X<sup>2</sup>
+      </button>
+      <div
+        style={{
+          height: "100%",
+          fontSize: "2em",
+          marginRight: 5,
+          opacity: 0.2,
+        }}
+      >
+        |
+      </div>
       <button onClick={addLink}>link</button>
       <button onClick={removeLink}>unli</button>
     </div>
   );
 };
+
 const RichTextEditor = ({ content, onUpdate }) => {
   const editor = useEditor({
     extensions: [
@@ -201,12 +243,18 @@ const RichTextEditor = ({ content, onUpdate }) => {
       TextStyle,
       Color,
       Link,
-      Image.configure({
-        allowBase64: true,
-      }),
       Underline,
       Highlight.configure({
         multicolor: true,
+      }),
+      Superscript,
+      Subscript,
+      ImageResize.configure({
+        inline: false,
+        allowBase64: true,
+        HTMLAttributes: {
+          class: "image",
+        },
       }),
     ],
     content: content,
@@ -230,6 +278,7 @@ const RichTextEditor = ({ content, onUpdate }) => {
                   const transaction = view.state.tr.replaceSelectionWith(
                     view.state.schema.nodes.image.create({
                       src: base64Image,
+                      width: "200",
                     }),
                   );
                   view.dispatch(transaction);
@@ -249,6 +298,22 @@ const RichTextEditor = ({ content, onUpdate }) => {
     },
   });
 
+  const upscaleImage = () => {
+    const currentWidth = editor.getAttributes("image").width || 100;
+    let newWidth = parseInt(currentWidth, 10) + 20;
+    if (newWidth > 700) {
+      newWidth = 700;
+    }
+    editor.commands.updateAttributes("image", { width: newWidth.toString() });
+  };
+
+  const downscaleImage = () => {
+    const currentWidth = editor.getAttributes("image").width || 100;
+    let newWidth = parseInt(currentWidth, 10) - 20;
+    if (newWidth < 10) return;
+    editor.commands.updateAttributes("image", { width: newWidth.toString() });
+  };
+
   React.useEffect(() => {
     if (editor && content !== editor.getHTML()) {
       editor.commands.setContent(content);
@@ -263,68 +328,15 @@ const RichTextEditor = ({ content, onUpdate }) => {
     <div className="main-container">
       <MenuBar editor={editor} />
       <EditorContent className="editor-container" editor={editor} />
+      {editor.isActive("image") && (
+        <div className="image-resizer">
+          <p>Resize:</p>
+          <button onClick={upscaleImage}>+</button>
+          <button onClick={downscaleImage}>-</button>
+        </div>
+      )}
     </div>
   );
 };
 
 export default RichTextEditor;
-
-/*
-<FloatingMenu editor={editor}>
-  {
-    <div className="floating-bar">
-      <button
-        onClick={() =>
-          editor.chain().focus().toggleHeading({ level: 1 }).run()
-        }
-        className={
-          editor.isActive("heading", { level: 1 }) ? "is-active" : ""
-        }
-      >
-        h1
-      </button>
-      <button
-        onClick={() =>
-          editor.chain().focus().toggleHeading({ level: 2 }).run()
-        }
-        className={
-          editor.isActive("heading", { level: 2 }) ? "is-active" : ""
-        }
-      >
-        h2
-      </button>
-      <button
-        onClick={() =>
-          editor.chain().focus().toggleHeading({ level: 3 }).run()
-        }
-        className={
-          editor.isActive("heading", { level: 3 }) ? "is-active" : ""
-        }
-      >
-        h3
-      </button>
-      <div style={{ height: "100%", fontSize: "3em", marginRight: 5 }}>
-        |
-      </div>
-      <button
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive("bulletList") ? "is-active" : ""}
-      >
-        -
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={editor.isActive("orderedList") ? "is-active" : ""}
-      >
-        1
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={editor.isActive("blockquote") ? "is-active" : ""}
-      >
-        q
-      </button>
-    </div>
-  }
-</FloatingMenu>
-*/
