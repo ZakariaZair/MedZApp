@@ -9,6 +9,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
 import Image from "@tiptap/extension-image";
+import Heading from "@tiptap/extension-heading";
 import React from "react";
 import "./richStyle.css";
 
@@ -22,6 +23,39 @@ const ImageResize = Image.extend({
         renderHTML: (attributes) => {
           return {
             width: attributes.width,
+          };
+        },
+      },
+    };
+  },
+});
+
+const HeadingColor = Heading.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      backgroundColor: {
+        default: null,
+        parseHTML: (element) => element.style.backgroundColor || null,
+        renderHTML: (attributes) => {
+          if (!attributes.backgroundColor) {
+            return {};
+          }
+
+          return {
+            style: `background-color: ${attributes.backgroundColor}`,
+          };
+        },
+      },
+      color: {
+        default: null,
+        parseHTML: (element) => element.style.color || null,
+        renderHTML: (attributes) => {
+          if (!attributes.color) {
+            return {};
+          }
+          return {
+            style: `color: ${attributes.color}`,
           };
         },
       },
@@ -50,14 +84,6 @@ const MenuBar = ({ editor }) => {
     if (editor.isActive("link")) {
       editor.chain().focus().unsetLink().run();
     }
-  };
-
-  const setFontSize = (size) => {
-    editor
-      .chain()
-      .focus()
-      .setMark("textStyle", { fontSize: `${size}px` })
-      .run();
   };
 
   return (
@@ -256,6 +282,7 @@ const RichTextEditor = ({ content, onUpdate }) => {
           class: "image",
         },
       }),
+      HeadingColor,
     ],
     content: content,
     onUpdate: ({ editor }) => {
@@ -314,6 +341,24 @@ const RichTextEditor = ({ content, onUpdate }) => {
     editor.commands.updateAttributes("image", { width: newWidth.toString() });
   };
 
+  const setHeadingBackgroundColor = (color) => {
+    editor.commands.updateAttributes("heading", {
+      backgroundColor: color,
+    });
+  };
+
+  const unsetHeadingBackgroundColor = () => {
+    editor.commands.updateAttributes("heading", { backgroundColor: null });
+  };
+
+  const setHeadingColor = () => {
+    editor.commands.updateAttributes("heading", { color: "white" });
+  };
+
+  const unsetHeadingColor = () => {
+    editor.commands.updateAttributes("heading", { color: null });
+  };
+
   React.useEffect(() => {
     if (editor && content !== editor.getHTML()) {
       editor.commands.setContent(content);
@@ -329,10 +374,29 @@ const RichTextEditor = ({ content, onUpdate }) => {
       <MenuBar editor={editor} />
       <EditorContent className="editor-container" editor={editor} />
       {editor.isActive("image") && (
-        <div className="image-resizer">
+        <div className="hover-window">
           <p>Resize:</p>
           <button onClick={upscaleImage}>+</button>
           <button onClick={downscaleImage}>-</button>
+        </div>
+      )}
+      {editor.isActive("heading") && (
+        <div className="hover-window">
+          <button onClick={() => unsetHeadingBackgroundColor()}>none</button>
+          <button onClick={() => setHeadingBackgroundColor("#D3615D")}>
+            🔴
+          </button>
+          <button onClick={() => setHeadingBackgroundColor("#DFA01F")}>
+            🟠
+          </button>
+          <button onClick={() => setHeadingBackgroundColor("#4788C7")}>
+            🔵
+          </button>
+          <button onClick={() => setHeadingBackgroundColor("#B04081")}>
+            🟣
+          </button>
+          <button onClick={() => unsetHeadingColor()}>🔳</button>
+          <button onClick={() => setHeadingColor()}>🔲</button>
         </div>
       )}
     </div>

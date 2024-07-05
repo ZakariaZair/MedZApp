@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   dataContainer: {
     flex: 1,
-    marginHorizontal: 8,
+    marginHorizontal: 2,
   },
   title: {
     fontSize: 14,
@@ -87,6 +87,24 @@ const tagsStyles = {
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   p: {
+    margin: 0,
+    padding: 0,
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+  },
+  h1: {
+    margin: 0,
+    padding: 0,
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+  },
+  h2: {
+    margin: 0,
+    padding: 0,
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+  },
+  h3: {
     margin: 0,
     padding: 0,
     fontFamily:

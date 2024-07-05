@@ -27,6 +27,7 @@
     max-height: 590px; /* Maximum height before scrolling */
     max-width: 900px;
     overflow-y: auto; /* Enables vertical scrolling if content overflows */
+    overflow-x: hidden;
 }
 
 /* This targets the active state of menu items, which you might have for formatting options */
@@ -86,7 +87,7 @@ img:hover {
     cursor: pointer;
 }
 
-.image-resizer {
+.hover-window {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -95,17 +96,18 @@ img:hover {
     padding-left: 20px;
     padding-right: 20px;
     margin: 10px 0 0 0;
-    border-radius: 5%;
+    border-radius: 4px;
     border: 1px solid #000;
 }
 
-.image-resizer * {
+.hover-window * {
+    margin: 5px;
 }
 
-.image-resizer p {
+.hover-window p {
     margin-right: 10px;
     font-weight: bold;
 }
 
-.image-resizer button {
+.hover-window button {
 }
