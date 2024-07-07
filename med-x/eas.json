@@ -10,7 +10,11 @@
       "developmentClient": true,
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "TIPTAP_AUTH_TOKEN": "r1llcXKy3b9HYp3zBS4GRkaOBeJ35cTXzrh1LXk14tPuI0Ua7alVNwSZXSnfMHkW"
+      }
+    }
   },
   "submit": {
     "production": {

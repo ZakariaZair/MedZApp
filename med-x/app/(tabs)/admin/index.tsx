@@ -1,12 +1,12 @@
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import {
-    Image,
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import Logo from "../../../assets/images/white_logo_nobg.png";
 
@@ -27,6 +27,7 @@ export default function Admin() {
         </Text>
         <View style={styles.passwordContainer}>
           <TextInput
+            autoFocus={true}
             placeholder="Enter password"
             secureTextEntry
             style={styles.password}
