@@ -2,14 +2,78 @@ import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect } from "react";
 import {
   Dimensions,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import RenderHTML from "react-native-render-html";
+import RenderHTML, {
+  CustomBlockRenderer,
+  defaultHTMLElementModels,
+  HTMLContentModel,
+  HTMLElementModel,
+} from "react-native-render-html";
 import { SystemsContext } from "../../../common/interfaces";
+
+const customHTMLElementModels = {
+  ...defaultHTMLElementModels,
+  details: HTMLElementModel.fromCustomModel({
+    tagName: "details",
+    contentModel: HTMLContentModel.block,
+  }),
+  summary: HTMLElementModel.fromCustomModel({
+    tagName: "summary",
+    contentModel: HTMLContentModel.mixed,
+  }),
+};
+
+const DetailsRenderer: CustomBlockRenderer = ({
+  TDefaultRenderer,
+  ...props
+}) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <View style={styles.detailsContainer}>
+      <Pressable onPress={toggleOpen} style={styles.summaryContainer}>
+        <Text style={styles.summaryText}>
+          {props.tnode.children[0]?.children[0]?.data || ">"}
+        </Text>
+      </Pressable>
+      {isOpen && (
+        <View style={styles.detailsContent}>
+          {props.tnode.children.slice(1).map((child, index) => (
+            <TDefaultRenderer key={index} tnode={child} {...props} />
+          ))}
+        </View>
+      )}
+    </View>
+  );
+};
+
+const SummaryRenderer: CustomBlockRenderer = ({
+  TDefaultRenderer,
+  ...props
+}) => {
+  return (
+    <Text style={styles.summaryText}>
+      {props.tnode.children.map((child, index) => (
+        <TDefaultRenderer key={index} tnode={child} {...props} />
+      ))}
+    </Text>
+  );
+};
+
+const customRenderers = {
+  details: DetailsRenderer,
+  summary: SummaryRenderer,
+};
 
 export default function Subject() {
   const { subjectName } = useLocalSearchParams<{ subjectName: string }>();
@@ -49,6 +113,8 @@ export default function Subject() {
             contentWidth={Dimensions.get("window").width}
             tagsStyles={tagsStyles}
             source={source}
+            customHTMLElementModels={customHTMLElementModels}
+            renderers={customRenderers}
           />
         </View>
       </ScrollView>
@@ -73,41 +139,68 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 10,
   },
+  detailsContainer: {
+    padding: 8,
+    marginBottom: 8,
+    backgroundColor: "#f9f9f9",
+    marginHorizontal: 10,
+  },
+  summaryContainer: {
+    paddingHorizontal: 2,
+  },
+  summaryText: {
+    fontWeight: "bold",
+  },
+  detailsContent: {
+    marginTop: 10,
+    marginHorizontal: 15,
+  },
+  text: {
+    fontFamily: Platform.select({
+      ios: "System",
+      android: "sans-serif",
+    }),
+  },
 });
 
 const tagsStyles = {
   div: {
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    ...styles.text,
   },
   ul: {
     paddingLeft: 15,
     margin: 0,
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+
+    ...styles.text,
   },
   p: {
     margin: 0,
     padding: 0,
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+
+    ...styles.text,
   },
   h1: {
     margin: 0,
     padding: 0,
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+
+    ...styles.text,
   },
   h2: {
     margin: 0,
     padding: 0,
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+
+    ...styles.text,
   },
   h3: {
     margin: 0,
     padding: 0,
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+
+    ...styles.text,
+  },
+  details: {
+    fontFamily: "SanFrancisco",
+  },
+  summary: {
+    fontFamily: "SanFrancisco",
   },
 };

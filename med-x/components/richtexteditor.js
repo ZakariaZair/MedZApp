@@ -1,6 +1,7 @@
 // RichTextEditor.js (for use in web environments)
 import { Color } from "@tiptap/extension-color";
 import Highlight from "@tiptap/extension-highlight";
+import Placeholder from "@tiptap/extension-placeholder";
 import Link from "@tiptap/extension-link";
 import TextStyle from "@tiptap/extension-text-style";
 import Underline from "@tiptap/extension-underline";
@@ -12,6 +13,9 @@ import Image from "@tiptap/extension-image";
 import Heading from "@tiptap/extension-heading";
 import React from "react";
 import "./richStyle.css";
+import Details from "@tiptap-pro/extension-details";
+import DetailsContent from "@tiptap-pro/extension-details-content";
+import DetailsSummary from "@tiptap-pro/extension-details-summary";
 
 const ImageResize = Image.extend({
   addAttributes() {
@@ -206,6 +210,38 @@ const MenuBar = ({ editor }) => {
       >
         1.
       </button>
+      <button
+        onClick={() => editor.chain().focus().setDetails().run()}
+        disabled={!editor.can().setDetails()}
+        className={editor.isActive("details") ? "is-active" : ""}
+      >
+        {">"}
+      </button>
+      <div
+        style={{
+          height: "100%",
+          fontSize: "2em",
+          marginRight: 5,
+          opacity: 0.2,
+        }}
+      >
+        |
+      </div>
+      <button onClick={() => editor.chain().focus().insertContent("ø").run()}>
+        ø
+      </button>
+      <button onClick={() => editor.chain().focus().insertContent("♂").run()}>
+        ♂
+      </button>
+      <button onClick={() => editor.chain().focus().insertContent("♀").run()}>
+        ♀
+      </button>
+      <button onClick={() => editor.chain().focus().insertContent("🚩").run()}>
+        🚩
+      </button>
+      <button onClick={() => editor.chain().focus().insertContent("→").run()}>
+        →
+      </button>
       <div
         style={{
           height: "100%",
@@ -283,6 +319,24 @@ const RichTextEditor = ({ content, onUpdate }) => {
         },
       }),
       HeadingColor,
+      Details.configure({
+        persist: true,
+        HTMLAttributes: {
+          class: "details",
+        },
+      }),
+      DetailsSummary,
+      DetailsContent,
+      Placeholder.configure({
+        includeChildren: true,
+        placeholder: ({ node }) => {
+          if (node.type.name === "detailsSummary") {
+            return "Summary";
+          }
+
+          return null;
+        },
+      }),
     ],
     content: content,
     onUpdate: ({ editor }) => {
