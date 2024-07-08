@@ -17,6 +17,14 @@ import RenderHTML, {
 } from "react-native-render-html";
 import { SystemsContext } from "../../../common/interfaces";
 
+const handleLinkPress = (href: string) => {
+  console.log(href);
+  if (href.startsWith("app://")) {
+    const routeName = href.replace("app://", "");
+    router.push(routeName);
+  }
+};
+
 const customHTMLElementModels = {
   ...defaultHTMLElementModels,
   details: HTMLElementModel.fromCustomModel({
@@ -70,9 +78,21 @@ const SummaryRenderer: CustomBlockRenderer = ({
   );
 };
 
+const aRenderer = ({ TDefaultRenderer, ...props }) => {
+  console.log(props);
+  return (
+    <Pressable onPress={() => handleLinkPress(props.tnode.attributes.href)}>
+      <Text style={{ color: "blue", textDecorationLine: "underline" }}>
+        {props.tnode.data}
+      </Text>
+    </Pressable>
+  );
+};
+
 const customRenderers = {
   details: DetailsRenderer,
   summary: SummaryRenderer,
+  a: aRenderer,
 };
 
 export default function Subject() {

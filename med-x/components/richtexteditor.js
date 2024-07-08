@@ -67,19 +67,23 @@ const HeadingColor = Heading.extend({
   },
 });
 
-const MenuBar = ({ editor }) => {
+const MenuBar = ({ editor, subjects }) => {
   if (!editor) {
     return null;
   }
 
   const addLink = () => {
     const url = window.prompt("Enter the URL");
+    if (!subjects.find((s) => s.name === url)) {
+      alert("Sujet non trouvé, assurez-vous de bien le taper !");
+      return;
+    }
     if (url) {
       editor
         .chain()
         .focus()
         .extendMarkRange("link")
-        .setLink({ href: `myapp://subjects/${url}` })
+        .setLink({ href: `app://subjects/${url}` })
         .run();
     }
   };
@@ -293,7 +297,7 @@ const MenuBar = ({ editor }) => {
   );
 };
 
-const RichTextEditor = ({ content, onUpdate }) => {
+const RichTextEditor = ({ content, onUpdate, subjects }) => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -333,7 +337,6 @@ const RichTextEditor = ({ content, onUpdate }) => {
           if (node.type.name === "detailsSummary") {
             return "Summary";
           }
-
           return null;
         },
       }),
@@ -425,7 +428,7 @@ const RichTextEditor = ({ content, onUpdate }) => {
 
   return (
     <div className="main-container">
-      <MenuBar editor={editor} />
+      <MenuBar editor={editor} subjects={subjects} />
       <EditorContent className="editor-container" editor={editor} />
       {editor.isActive("image") && (
         <div className="hover-window">

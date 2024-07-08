@@ -160,6 +160,7 @@ export default function Configuration() {
           key={currentSubjectName}
           content={content}
           onUpdate={setContent}
+          subjects={subjects}
         />
         {currentSubjectName &&
           subjects.find((subject) => subject.name === currentSubjectName)
