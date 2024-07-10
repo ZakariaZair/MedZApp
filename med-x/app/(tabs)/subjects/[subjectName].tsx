@@ -51,6 +51,7 @@ const DetailsRenderer: CustomBlockRenderer = ({
     <View style={styles.detailsContainer}>
       <Pressable onPress={toggleOpen} style={styles.summaryContainer}>
         <Text style={styles.summaryText}>
+          {isOpen ? "⏷ " : "⏵ "}
           {props.tnode.children[0]?.children[0]?.data || ">"}
         </Text>
       </Pressable>
@@ -170,10 +171,12 @@ const styles = StyleSheet.create({
   },
   summaryText: {
     fontWeight: "bold",
+    fontSize: 20,
   },
   detailsContent: {
     marginTop: 10,
     marginHorizontal: 15,
+    fontSize: 18,
   },
   text: {
     fontFamily: Platform.select({
@@ -186,41 +189,44 @@ const styles = StyleSheet.create({
 const tagsStyles = {
   div: {
     ...styles.text,
+    fontSize: 20,
   },
   ul: {
     paddingLeft: 15,
     margin: 0,
-
+    fontSize: 20,
     ...styles.text,
   },
   p: {
     margin: 0,
     padding: 0,
-
+    fontSize: 20,
     ...styles.text,
   },
   h1: {
     margin: 0,
     padding: 0,
-
+    fontSize: 40,
     ...styles.text,
   },
   h2: {
     margin: 0,
     padding: 0,
-
+    fontSize: 32,
     ...styles.text,
   },
   h3: {
     margin: 0,
     padding: 0,
-
+    fontSize: 24,
     ...styles.text,
   },
   details: {
     fontFamily: "SanFrancisco",
+    fontSize: 20,
   },
   summary: {
     fontFamily: "SanFrancisco",
+    fontSize: 20,
   },
 };

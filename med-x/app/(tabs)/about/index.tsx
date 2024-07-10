@@ -33,13 +33,13 @@ export default function About() {
         style={styles.button}
         onPress={() => router.push("/about/terms")}
       >
-        <Text style={styles.title}>Termes d'utilisation</Text>
+        <Text style={styles.title}>Termes {"&"} Conditions</Text>
       </Pressable>
       <Pressable
         style={styles.button}
         onPress={() => router.push("/about/no_res")}
       >
-        <Text style={styles.title}>Avis de non-responsabilité</Text>
+        <Text style={styles.title}>Politique de Confidentialité</Text>
       </Pressable>
     </View>
   );

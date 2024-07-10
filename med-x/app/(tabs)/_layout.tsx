@@ -147,7 +147,7 @@ export default function TabsLayout() {
         key="terms"
         name="about/terms"
         options={{
-          title: "Termes d'utilisation",
+          title: "Termes & Conditions",
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
@@ -162,7 +162,7 @@ export default function TabsLayout() {
         key="no_res"
         name="about/no_res"
         options={{
-          title: "Avis de non-responsabilité",
+          title: "Politique de confidentialité",
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
