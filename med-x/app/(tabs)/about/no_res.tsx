@@ -125,19 +125,12 @@ export default function No_res() {
         information as set forth in this Privacy Policy now and as amended by
         us.
       </Text>
-      <Text style={styles.header}>Contact Us</Text>
-      <Text style={styles.paragraph}>
-        If you have any questions regarding privacy while using the Application,
-        or have questions about the practices, please contact the Service
-        Provider via email at zak.z@outlook.com.
-      </Text>
       <Pressable
-        style={styles.link}
         onPress={() =>
           Linking.openURL("https://sites.google.com/view/medznotes/privacy")
         }
       >
-        Lien de politique de confidentialité
+        <Text style={styles.link}>Lien de politique de confidentialité</Text>
       </Pressable>
     </ScrollView>
   );
@@ -170,7 +163,7 @@ const styles = StyleSheet.create({
     marginLeft: 25,
   },
   link: {
-    fontSize: 32,
+    fontSize: 12,
     margin: 8,
     textAlign: "center",
     color: "blue",
