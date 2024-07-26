@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
 } from "react-native";
 import Logo from "../../assets/icon.png";
 import { SystemsContext } from "../../common/interfaces";
@@ -22,8 +22,10 @@ export default function Search() {
   };
 
   function highlightMatch(text: string, search: string) {
-    const normedText = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    const normedSearch = search.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const normedText = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const normedSearch = search
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
     const index = normedText.toLowerCase().indexOf(normedSearch.toLowerCase());
 
     if (index >= 0) {
@@ -42,10 +44,17 @@ export default function Search() {
   }
 
   function findSystems(search: string) {
-    const normedSearch = search.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const normedSearch = search
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
     return systems
       .filter((system) =>
-        system.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(normedSearch),
+        system.name
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .includes(normedSearch),
       )
       .map((system, index) => (
         <Pressable
@@ -59,11 +68,18 @@ export default function Search() {
   }
 
   function findSubjects(search: string) {
-    const normedSearch = search.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const normedSearch = search
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
     return systems
       .filter((system) =>
         (system.subjects || []).some((subject) =>
-          subject.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(normedSearch),
+          subject
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .includes(normedSearch),
         ),
       )
       .map((system, index) => {
@@ -77,7 +93,9 @@ export default function Search() {
             onPress={() => router.push(`/subjects/${matchingSubject}`)}
             style={styles.searchResult}
           >
-            <Text style={styles.systemName}>{system.name}  ->   </Text>
+            <Text style={styles.systemName}>
+              {system.name} {"-> "}
+            </Text>
             {matchingSubject && highlightMatch(matchingSubject, search)}
           </Pressable>
         );
@@ -95,8 +113,11 @@ export default function Search() {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       ></TextInput>
-      {search.length > 0 &&
-        <ScrollView style={styles.searchResults} contentContainerStyle={styles.contentContainer}>
+      {search.length > 0 && (
+        <ScrollView
+          style={styles.searchResults}
+          contentContainerStyle={styles.contentContainer}
+        >
           <View style={styles.searchTitle}>
             <Text style={styles.searchTitleText}>Systèmes</Text>
           </View>
@@ -106,13 +127,18 @@ export default function Search() {
           </View>
           {findSubjects(search)}
         </ScrollView>
-      }
-      {search.length <= 0 &&
+      )}
+      {search.length <= 0 && (
         <View style={styles.noContentContainer}>
-          <Image source={Logo} style={{ width: 360, height: 360, opacity: 0.1 }} />
-          <Text style={styles.noContentPlaceholder}>Recherchez un système ou un sujet</Text>
+          <Image
+            source={Logo}
+            style={{ width: 360, height: 360, opacity: 0.1 }}
+          />
+          <Text style={styles.noContentPlaceholder}>
+            Recherchez un système ou un sujet
+          </Text>
         </View>
-      }
+      )}
     </View>
   );
 }
@@ -197,5 +223,9 @@ const styles = StyleSheet.create({
   highlight: {
     backgroundColor: "#00035B33",
     color: "blue",
+    padding: 5,
+    borderColor: "blue",
+    borderWidth: 1,
+    borderRadius: 5,
   },
 });

@@ -13,11 +13,6 @@ export default function Terms() {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Terms and Conditions</Text>
       <Text style={styles.paragraph}>
-        These terms and conditions applies to the MedZNotes app (hereby referred
-        to as "Application") for mobile devices that was created by Zakaria Zair
-        (hereby referred to as "Service Provider") as a Free service.
-      </Text>
-      <Text style={styles.paragraph}>
         Upon downloading or utilizing the Application, you are automatically
         agreeing to the following terms. It is strongly advised that you
         thoroughly read and understand these terms prior to using the

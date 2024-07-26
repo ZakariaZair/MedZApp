@@ -52,11 +52,6 @@ export default function More() {
             soins de santé.
           </Text>
           <Text style={styles.paragraph}>
-            Personnalisation : Possibilité de marquer vos sections favorites et
-            d'ajouter des notes personnalisées pour un accès facilité lors de
-            vos consultations et études.
-          </Text>
-          <Text style={styles.paragraph}>
             Ressources Visuelles : Intégration d'images et d'illustrations
             médicales pour une meilleure compréhension des sujets complexes.
           </Text>

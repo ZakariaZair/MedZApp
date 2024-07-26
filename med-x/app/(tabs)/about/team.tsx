@@ -7,8 +7,7 @@ export default function Team() {
       <Text style={styles.title}>
         Fondé en 2024 par le comité de développement médical (CDM)
       </Text>
-      <Text style={styles.subtitle}>Oumaima Zair</Text>
-      <Text style={styles.subtitle}>Zakaria Zair</Text>
+      <Text style={styles.subtitle}>Bientôt disponible !</Text>
     </View>
   );
 }
