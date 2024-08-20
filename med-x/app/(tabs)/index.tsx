@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import { SystemsContext } from "../../common/interfaces";
-import systemIcons from "../../components/systems_icons";
+import systemIcons from "../../components/med-z-icons";
 
 export default function Main() {
   const { systems } = React.useContext(SystemsContext);

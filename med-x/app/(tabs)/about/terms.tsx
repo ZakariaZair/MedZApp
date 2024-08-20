@@ -11,7 +11,7 @@ import {
 export default function Terms() {
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Terms and Conditions</Text>
+      <Text style={styles.title}>Termes & Conditions</Text>
       <Text style={styles.paragraph}>
         Upon downloading or utilizing the Application, you are automatically
         agreeing to the following terms. It is strongly advised that you
