@@ -17,7 +17,7 @@ export default function Copyright() {
         style={styles.title}
         onPress={() => Linking.openURL("https://icons8.com")}
       >
-        Icons by Icons8
+        Icônes par Icons8
       </Text>
       <ScrollView>
         {systemIcons.icons.map((icon, index) => {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    marginLeft: 40,
+    marginLeft: 10,
   },
   text: {
     fontSize: 14,

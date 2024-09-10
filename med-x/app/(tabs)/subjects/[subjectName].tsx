@@ -117,6 +117,10 @@ export default function Subject() {
       ),
       headerTintColor: "#fff",
       headerStyle: { backgroundColor: "#4788C7" },
+      headerTitleStyle: {
+        fontSize: 33,
+        fontWeight: "bold",
+      },
     });
   }, [navigation, subjectName]);
 
@@ -161,22 +165,26 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   detailsContainer: {
-    padding: 8,
-    marginBottom: 8,
-    backgroundColor: "#f9f9f9",
+    padding: 0,
+    paddingHorizontal: 6,
+    margin: 0,
     marginHorizontal: 10,
+    marginBottom: 10,
+    backgroundColor: "#fff",
+  },
+  detailsContent: {
+    margin: 0,
+    marginHorizontal: 0,
+    fontSize: 18,
   },
   summaryContainer: {
-    paddingHorizontal: 2,
+    paddingHorizontal: 5,
   },
   summaryText: {
     fontWeight: "bold",
     fontSize: 20,
-  },
-  detailsContent: {
-    marginTop: 10,
-    marginHorizontal: 15,
-    fontSize: 18,
+    padding: 0,
+    margin: 0,
   },
   text: {
     fontFamily: Platform.select({
@@ -188,35 +196,42 @@ const styles = StyleSheet.create({
 
 const tagsStyles = {
   div: {
-    ...styles.text,
-    fontSize: 20,
-  },
-  ul: {
-    paddingLeft: 15,
-    margin: 0,
     fontSize: 20,
     ...styles.text,
   },
   p: {
+    marginHorizontal: 0,
+    marginTop: -3,
+    marginBottom: 13,
+    paddingVertical: 0,
+    paddingHorizontal: 5,
+    fontSize: 20,
+    ...styles.text,
+  },
+  ul: {
+    paddingLeft: 34,
     margin: 0,
-    padding: 0,
+    marginBottom: 0,
     fontSize: 20,
     ...styles.text,
   },
   h1: {
     margin: 0,
+    marginBottom: 26,
     padding: 0,
     fontSize: 40,
     ...styles.text,
   },
   h2: {
     margin: 0,
+    marginBottom: 22,
     padding: 0,
-    fontSize: 32,
+    fontSize: 26,
     ...styles.text,
   },
   h3: {
     margin: 0,
+    marginBottom: 18,
     padding: 0,
     fontSize: 24,
     ...styles.text,

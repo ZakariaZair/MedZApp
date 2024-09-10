@@ -34,7 +34,7 @@ export default function TabsLayout() {
             return (
               <LinearGradient
                 colors={["#4788C7", "#4788C7", "#ffffff"]}
-                locations={[0, 0.952, 1]}
+                locations={[0, 0.979, 1]}
                 style={styles.header}
               ></LinearGradient>
             );
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     opacity: 1,
-    marginBottom: 21,
+    marginBottom: 11,
   },
   logo: {
     width: 37,

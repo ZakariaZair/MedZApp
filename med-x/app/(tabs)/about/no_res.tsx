@@ -5,12 +5,6 @@ export default function No_res() {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Politique de Confidentialité</Text>
-      <Text style={styles.paragraph}>
-        This privacy policy applies to the MedZNotes app (hereby referred to as
-        "Application") for mobile devices that was created by Zakaria Zair
-        (hereby referred to as "Service Provider") as a Free service. This
-        service is intended for use "AS IS".
-      </Text>
       <Text style={styles.header}>Information Collection and Use</Text>
       <Text style={styles.paragraph}>
         The Application collects information when you download and use it. This
