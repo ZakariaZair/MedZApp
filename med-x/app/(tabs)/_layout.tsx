@@ -26,7 +26,7 @@ export default function TabsLayout() {
         options={{
           headerTitle: () => (
             <View style={styles.logoContainer}>
-              <Image source={Logo} style={styles.logo} />
+              {/*<Image source={Logo} style={styles.logo} />*/}
               <Text style={styles.title}>MedZNotes</Text>
             </View>
           ),
@@ -34,7 +34,7 @@ export default function TabsLayout() {
             return (
               <LinearGradient
                 colors={["#4788C7", "#4788C7", "#ffffff"]}
-                locations={[0, 0.979, 1]}
+                locations={[0, 1, 1]}
                 style={styles.header}
               ></LinearGradient>
             );

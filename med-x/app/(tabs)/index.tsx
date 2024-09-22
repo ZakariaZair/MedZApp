@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
     padding: "auto",
   },
   system: {
-    padding: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     marginTop: 5,
     backfaceVisibility: "hidden",
     borderBottomWidth: 1,
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
   },
   systemName: {
     fontSize: 18,
+    paddingHorizontal: 8,
     fontWeight: "bold",
   },
   systemLogo: {

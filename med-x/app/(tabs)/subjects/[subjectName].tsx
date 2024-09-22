@@ -18,7 +18,6 @@ import RenderHTML, {
 import { SystemsContext } from "../../../common/interfaces";
 
 const handleLinkPress = (href: string) => {
-  console.log(href);
   if (href.startsWith("app://")) {
     const routeName = href.replace("app://", "");
     router.push(routeName);
@@ -71,19 +70,27 @@ const SummaryRenderer: CustomBlockRenderer = ({
   ...props
 }) => {
   return (
-    <Text style={styles.summaryText}>
+    <View style={styles.summaryText}>
       {props.tnode.children.map((child, index) => (
         <TDefaultRenderer key={index} tnode={child} {...props} />
       ))}
-    </Text>
+    </View>
   );
 };
 
 const aRenderer = ({ TDefaultRenderer, ...props }) => {
-  console.log(props);
   return (
     <Pressable onPress={() => handleLinkPress(props.tnode.attributes.href)}>
-      <Text style={{ color: "blue", textDecorationLine: "underline" }}>
+      <Text
+        style={{
+          color: "blue",
+          textDecorationLine: "underline",
+          fontSize: 14,
+          margin: 0,
+          padding: 0,
+          marginBottom: -3,
+        }}
+      >
         {props.tnode.data}
       </Text>
     </Pressable>
@@ -147,6 +154,10 @@ export default function Subject() {
   );
 }
 
+// IMPORTANT
+// This is the style for the React Native content,
+// so basically, it's for what's inside the return(),
+// and what's inside the details/summary tags. It has highest priority.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -156,9 +167,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 2,
   },
-  title: {
-    fontSize: 14,
-  },
   back: {
     color: "#fff",
     fontSize: 16,
@@ -166,82 +174,102 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     padding: 0,
-    paddingHorizontal: 6,
     margin: 0,
-    marginHorizontal: 10,
-    marginBottom: 10,
+    // paddingHorizontal: 6,
+    // marginHorizontal: 10,
+    // marginBottom: 10,
     backgroundColor: "#fff",
   },
   detailsContent: {
     margin: 0,
-    marginHorizontal: 0,
+    padding: 0,
+    // marginHorizontal: 0,
     fontSize: 18,
   },
   summaryContainer: {
+    margin: 0,
+    padding: 0,
     paddingHorizontal: 5,
   },
   summaryText: {
-    fontWeight: "bold",
-    fontSize: 20,
     padding: 0,
     margin: 0,
-  },
-  text: {
-    fontFamily: Platform.select({
-      ios: "System",
-      android: "sans-serif",
-    }),
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 
+// Less Important
+// This is style applied to everything BEFORE tagsStyles
+//**** EDIT: This is not working, so I'm not using it ****//
+// const baseStyle = {
+//   fontFamily: Platform.select({
+//     ios: "System",
+//     android: "sans-serif",
+//   }),
+//   margin: 0,
+//   padding: 0,
+// };
+
+// IMPORTANT
+// This is the style for the HTML content,
+// so basically, it's for the tags like p, h1, h2, etc.
+// and for the rawData INSIDE each subject. (what HTMLRenderer uses)
 const tagsStyles = {
   div: {
-    fontSize: 20,
-    ...styles.text,
-  },
-  p: {
-    marginHorizontal: 0,
-    marginTop: -3,
-    marginBottom: 13,
-    paddingVertical: 0,
-    paddingHorizontal: 5,
-    fontSize: 20,
-    ...styles.text,
-  },
-  ul: {
-    paddingLeft: 34,
     margin: 0,
     marginBottom: 0,
-    fontSize: 20,
-    ...styles.text,
+  },
+  a: {
+    fontSize: 14,
+  },
+  p: {
+    // marginHorizontal: 0,
+    // marginTop: -3,
+    // marginBottom: 13,
+    // paddingVertical: 0,
+    // paddingHorizontal: 5,
+    fontSize: 14,
+    margin: 0,
+    marginBottom: 0,
+  },
+  ul: {
+    // margin: 0,
+    // marginBottom: 0,
+    fontSize: 12,
+    margin: 0,
+    padding: 0,
+    paddingLeft: 30,
+  },
+  li: {
+    fontSize: 18,
+    margin: 0,
+    padding: 0,
   },
   h1: {
+    // margin: 0,
+    // marginBottom: 26,
+    // padding: 0,
+    fontSize: 22,
     margin: 0,
-    marginBottom: 26,
-    padding: 0,
-    fontSize: 40,
-    ...styles.text,
+    marginBottom: 0,
   },
   h2: {
+    // margin: 0,
+    // marginBottom: 22,
+    // padding: 0,
+    fontSize: 18,
+    textAlign: "center",
     margin: 0,
-    marginBottom: 22,
-    padding: 0,
-    fontSize: 26,
-    ...styles.text,
+    marginBottom: 0,
   },
   h3: {
+    // margin: 0,
+    // marginBottom: 18,
+    // padding: 0,
+    fontSize: 18,
+    textAlign: "center",
     margin: 0,
-    marginBottom: 18,
     padding: 0,
-    fontSize: 24,
-    ...styles.text,
-  },
-  details: {
-    fontFamily: "SanFrancisco",
-    fontSize: 20,
-  },
-  summary: {
-    fontFamily: "SanFrancisco",
-    fontSize: 20,
   },
 };

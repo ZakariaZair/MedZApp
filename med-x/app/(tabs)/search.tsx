@@ -104,15 +104,18 @@ export default function Search() {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={[styles.searchBar, isFocused && styles.searchBarFocused]}
-        autoCorrect={false}
-        autoCapitalize="none"
-        placeholder="Recherchez"
-        onChangeText={handleSearch}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      ></TextInput>
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={[styles.searchBar, isFocused && styles.searchBarFocused]}
+          autoCorrect={false}
+          autoCapitalize="none"
+          placeholder="Recherchez"
+          onChangeText={handleSearch}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          clearButtonMode="always"
+        ></TextInput>
+      </View>
       {search.length > 0 && (
         <ScrollView
           style={styles.searchResults}
@@ -157,13 +160,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  searchContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
   searchBar: {
     width: "90%",
     paddingHorizontal: 10,
-    height: 40,
+    height: 35,
     borderColor: "gray",
     borderWidth: 0.4,
-    borderRadius: 5,
+    borderRadius: 10,
     margin: 5,
   },
   searchBarFocused: {
