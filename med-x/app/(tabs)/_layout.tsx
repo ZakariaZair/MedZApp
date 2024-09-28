@@ -84,10 +84,10 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        key="more"
-        name="about/more"
+        key="mission"
+        name="about/mission"
         options={{
-          title: "Plus d'informations",
+          title: "Mission",
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
@@ -103,21 +103,6 @@ export default function TabsLayout() {
         name="about/team"
         options={{
           title: "Notre équipe",
-          href: null,
-          headerTitleStyle: { color: "white" },
-          headerStyle: { backgroundColor: "#4788C7" },
-          headerLeft: () => (
-            <Pressable onPress={() => router.push("about")}>
-              <Text style={styles.back}>Retour</Text>
-            </Pressable>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        key="collab"
-        name="about/collab"
-        options={{
-          title: "Auteurs et collaboration",
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
@@ -147,7 +132,7 @@ export default function TabsLayout() {
         key="terms"
         name="about/terms"
         options={{
-          title: "Termes & Conditions",
+          title: "Conditions d'utilisation",
           href: null,
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
@@ -159,8 +144,23 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        key="no_res"
-        name="about/no_res"
+        key="disclaimer"
+        name="about/disclaimer"
+        options={{
+          title: "Avis de non-responsabilité",
+          href: null,
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#4788C7" },
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("about")}>
+              <Text style={styles.back}>Retour</Text>
+            </Pressable>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        key="policy"
+        name="about/policy"
         options={{
           title: "Politique de confidentialité",
           href: null,

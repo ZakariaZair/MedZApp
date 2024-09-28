@@ -7,39 +7,45 @@ export default function About() {
     <View style={styles.container}>
       <Pressable
         style={styles.button}
-        onPress={() => router.push("/about/more")}
+        onPress={() => router.push("/about/mission")}
       >
-        <Text style={styles.title}>Plus d'informations</Text>
+        <Text style={styles.title}>Mission</Text>
       </Pressable>
-      <Pressable
+      {/* <Pressable
         style={styles.button}
         onPress={() => router.push("/about/team")}
       >
         <Text style={styles.title}>Notre équipe</Text>
+      </Pressable> */}
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/about/disclaimer")}
+      >
+        <Text style={styles.title}>Avis de non-responsabilité</Text>
       </Pressable>
       <Pressable
         style={styles.button}
-        onPress={() => router.push("/about/collab")}
+        onPress={() => router.push("/about/policy")}
       >
-        <Text style={styles.title}>Auteurs et Collaborateurs</Text>
-      </Pressable>
-      <Pressable
-        style={styles.button}
-        onPress={() => router.push("/about/copyright")}
-      >
-        <Text style={styles.title}>Références</Text>
+        <Text style={styles.title}>Politique de confidentialité</Text>
       </Pressable>
       <Pressable
         style={styles.button}
         onPress={() => router.push("/about/terms")}
       >
-        <Text style={styles.title}>Termes {"&"} Conditions</Text>
+        <Text style={styles.title}>Conditions d'utilisation</Text>
       </Pressable>
+      {/* <Pressable
+        style={styles.button}
+        onPress={() => router.push("/about/team")}
+      >
+        <Text style={styles.title}>Fondateurs et équipe</Text>
+      </Pressable> */}
       <Pressable
         style={styles.button}
-        onPress={() => router.push("/about/no_res")}
+        onPress={() => router.push("/about/copyright")}
       >
-        <Text style={styles.title}>Politique de Confidentialité</Text>
+        <Text style={styles.title}>Références</Text>
       </Pressable>
     </View>
   );

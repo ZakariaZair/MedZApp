@@ -186,12 +186,12 @@ const MenuBar = ({ editor, subjects }) => {
       >
         h2
       </button>
-      <button
+      {/* <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={editor.isActive("heading", { level: 3 }) ? "is-active" : ""}
       >
         h3
-      </button>
+      </button> */}
       <div
         style={{
           height: "100%",

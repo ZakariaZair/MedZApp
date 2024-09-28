@@ -2,7 +2,6 @@ import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect } from "react";
 import {
   Dimensions,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -147,6 +146,7 @@ export default function Subject() {
             source={source}
             customHTMLElementModels={customHTMLElementModels}
             renderers={customRenderers}
+            systemFonts={["San-Francisco", "sans-serif", "System"]}
           />
         </View>
       </ScrollView>
@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
   dataContainer: {
     flex: 1,
     marginHorizontal: 2,
+    marginBottom: 96,
   },
   back: {
     color: "#fff",
@@ -177,25 +178,28 @@ const styles = StyleSheet.create({
     margin: 0,
     // paddingHorizontal: 6,
     // marginHorizontal: 10,
-    // marginBottom: 10,
     backgroundColor: "#fff",
   },
   detailsContent: {
     margin: 0,
     padding: 0,
-    // marginHorizontal: 0,
-    fontSize: 18,
+    marginBottom: 10,
+    marginLeft: 10,
+    borderLeftWidth: 1,
+    borderLeftColor: "#000",
   },
   summaryContainer: {
     margin: 0,
     padding: 0,
     paddingHorizontal: 5,
+    paddingVertical: 14.5,
   },
   summaryText: {
     padding: 0,
     margin: 0,
     fontWeight: "bold",
     fontSize: 16,
+    paddingLeft: 15,
   },
 });
 
@@ -220,8 +224,14 @@ const tagsStyles = {
     margin: 0,
     marginBottom: 0,
   },
+  hr: {
+    margin: 0,
+    padding: 0,
+    marginTop: 32,
+    paddingVertical: 0,
+  },
   a: {
-    fontSize: 14,
+    fontSize: 16,
   },
   p: {
     // marginHorizontal: 0,
@@ -229,20 +239,20 @@ const tagsStyles = {
     // marginBottom: 13,
     // paddingVertical: 0,
     // paddingHorizontal: 5,
-    fontSize: 14,
+    fontSize: 16,
     margin: 0,
     marginBottom: 0,
+    marginLeft: 8,
   },
   ul: {
     // margin: 0,
     // marginBottom: 0,
-    fontSize: 12,
+    fontSize: 14,
     margin: 0,
     padding: 0,
     paddingLeft: 30,
   },
   li: {
-    fontSize: 18,
     margin: 0,
     padding: 0,
   },
@@ -250,26 +260,34 @@ const tagsStyles = {
     // margin: 0,
     // marginBottom: 26,
     // padding: 0,
-    fontSize: 22,
+    fontSize: 20,
     margin: 0,
-    marginBottom: 0,
+    paddingLeft: 10,
+    paddingBottom: 16,
+    paddingTop: 8,
   },
   h2: {
     // margin: 0,
     // marginBottom: 22,
     // padding: 0,
     fontSize: 18,
-    textAlign: "center",
     margin: 0,
-    marginBottom: 0,
+    paddingLeft: 10,
+    paddingBottom: 0,
+    paddingTop: 0,
   },
+  /*
+  **
+    H3 is not to be used until we say again
+  **
+  */
   h3: {
     // margin: 0,
     // marginBottom: 18,
     // padding: 0,
-    fontSize: 18,
-    textAlign: "center",
+    fontSize: 30,
     margin: 0,
     padding: 0,
+    color: "#ff0000",
   },
 };
