@@ -4,10 +4,8 @@ import { StyleSheet, Text, View } from "react-native";
 export default function Team() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Fondé en 2024 par le comité de développement médical (CDM)
-      </Text>
-      <Text style={styles.subtitle}>Bientôt disponible !</Text>
+      <Text style={styles.title}>Fondé en 2024 par</Text>
+      <Text style={styles.subtitle}>Oumaima Zair et Zakaria Zair</Text>
     </View>
   );
 }
@@ -22,10 +20,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
+    fontStyle: "italic",
     marginVertical: 20,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: "center",
     marginVertical: 10,
   },

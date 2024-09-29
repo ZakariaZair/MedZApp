@@ -243,6 +243,9 @@ const MenuBar = ({ editor, subjects }) => {
       <button onClick={() => editor.chain().focus().insertContent("🚩").run()}>
         🚩
       </button>
+      <button onClick={() => editor.chain().focus().insertContent("💡").run()}>
+        💡
+      </button>
       <button onClick={() => editor.chain().focus().insertContent("→").run()}>
         →
       </button>

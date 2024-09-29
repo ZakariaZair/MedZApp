@@ -11,6 +11,12 @@ export default function About() {
       >
         <Text style={styles.title}>Mission</Text>
       </Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/about/team")}
+      >
+        <Text style={styles.title}>Fondateurs et équipe</Text>
+      </Pressable>
       {/* <Pressable
         style={styles.button}
         onPress={() => router.push("/about/team")}
@@ -35,12 +41,6 @@ export default function About() {
       >
         <Text style={styles.title}>Conditions d'utilisation</Text>
       </Pressable>
-      {/* <Pressable
-        style={styles.button}
-        onPress={() => router.push("/about/team")}
-      >
-        <Text style={styles.title}>Fondateurs et équipe</Text>
-      </Pressable> */}
       <Pressable
         style={styles.button}
         onPress={() => router.push("/about/copyright")}

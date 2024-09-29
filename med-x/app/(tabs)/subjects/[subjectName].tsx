@@ -124,7 +124,6 @@ export default function Subject() {
       headerTintColor: "#fff",
       headerStyle: { backgroundColor: "#4788C7" },
       headerTitleStyle: {
-        fontSize: 33,
         fontWeight: "bold",
       },
     });

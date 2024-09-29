@@ -4,7 +4,7 @@ import { StyleSheet, Text, ScrollView, Linking, Pressable } from "react-native";
 export default function Disclaimer() {
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>MedZNotes Disclaimer</Text>
+      <Text style={styles.title}>MedZNotes - Avis de non-responsabilité</Text>
       <Text style={styles.paragraph}>
         Cette application ("MedZNotes") a été rédigée par des étudiants en
         médecine et révisée par des résidents. Elle est destinée exclusivement
