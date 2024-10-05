@@ -8,17 +8,11 @@ import {
   Pressable,
   View,
 } from "react-native";
-import systemIcons from "../../../components/med-z-icons";
+import systemIcons from "../../../../components/med-z-icons";
 
-export default function Copyright() {
+export default function Icons() {
   return (
     <View style={styles.container}>
-      <Text
-        style={styles.title}
-        onPress={() => Linking.openURL("https://icons8.com")}
-      >
-        Icônes par Icons8
-      </Text>
       <ScrollView>
         {systemIcons.icons.map((icon, index) => {
           return (
@@ -36,6 +30,12 @@ export default function Copyright() {
           );
         })}
       </ScrollView>
+      <Text
+        style={styles.title}
+        onPress={() => Linking.openURL("https://icons8.com")}
+      >
+        Icônes par Icons8
+      </Text>
     </View>
   );
 }

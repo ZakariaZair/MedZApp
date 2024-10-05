@@ -7,19 +7,18 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { addSource } from "../supabase/supabaseClient";
 import { SystemsContext } from "../common/interfaces";
-import { addSubjectToSystem } from "../supabase/supabaseClient";
 
-const AddSubjectModal = ({ modalVisible, setModalVisible, systemName }) => {
-  const { refreshData } = React.useContext(SystemsContext);
-  const [newSubjectName, setNewSubjectName] = useState("");
-  const addSubject = () => {
-    if (newSubjectName === "") {
-      return;
-    }
-
-    addSubjectToSystem(systemName, newSubjectName.trim()).then(() => {
-      refreshData();
+const AddSourceModal = ({ modalVisible, setModalVisible, subjectName }) => {
+  const { subjects } = React.useContext(SystemsContext);
+  const [sourceText, setSourceText] = useState("");
+  const addSourceText = (sourceText: string) => {
+    addSource(subjectName, sourceText).then(() => {
+      const target = subjects.find((sub) => sub.name == subjectName);
+      if (target) {
+        target.sources = sourceText;
+      }
     });
     setModalVisible(false);
   };
@@ -38,23 +37,23 @@ const AddSubjectModal = ({ modalVisible, setModalVisible, systemName }) => {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          {!systemName && <Text>Erreur</Text>}
-          <Text style={{ fontSize: 50, fontWeight: "bold" }}>{systemName}</Text>
-          <View style={styles.addSubject}>
-            <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-              Ajouter un sujet
+          {!subjectName && <Text>Erreur</Text>}
+          <Text style={{ fontSize: 35, fontWeight: "bold" }}>
+            Modifier les sources
+          </Text>
+          <View style={styles.addSource}>
+            <Text
+              style={{ fontSize: 15, fontWeight: "bold", textAlign: "center" }}
+            >
+              {subjectName}
             </Text>
             <TextInput
-              style={{
-                height: 40,
-                width: "80%",
-                borderColor: "gray",
-                borderWidth: 1,
-                borderRadius: 10,
-                margin: 10,
-              }}
-              onChangeText={(text) => setNewSubjectName(text.trim())}
-              placeholder="Nom du sujet"
+              style={styles.input}
+              multiline={true}
+              onChangeText={(text) => setSourceText(text.trim())}
+              defaultValue={
+                subjects.find((sub) => sub.name == subjectName)?.sources
+              }
             />
           </View>
           <View style={styles.buttons}>
@@ -66,10 +65,9 @@ const AddSubjectModal = ({ modalVisible, setModalVisible, systemName }) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.button, styles.buttonAccept]}
-              disabled={newSubjectName === ""}
-              onPress={() => addSubject()}
+              onPress={() => addSourceText(sourceText)}
             >
-              <Text style={styles.buttonText}>Ajouter</Text>
+              <Text style={styles.buttonText}>Modifier</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -86,13 +84,21 @@ const styles = StyleSheet.create({
     marginTop: 22,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
+  input: {
+    height: 400,
+    width: "80%",
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 10,
+    padding: 10,
+  },
   modalView: {
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
     flexDirection: "column",
     width: "60%",
-    height: "50%",
+    height: "80%",
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
@@ -106,12 +112,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  addSubject: {
+  addSource: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
     width: "100%",
-    height: "60%",
+    height: "80%",
     backgroundColor: "lightgrey",
     borderRadius: 20,
     padding: 10,
@@ -137,10 +143,10 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontSize: 25,
+    fontSize: 23,
     fontWeight: "bold",
     textAlign: "center",
   },
 });
 
-export default AddSubjectModal;
+export default AddSourceModal;

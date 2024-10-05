@@ -43,7 +43,7 @@ export default function About() {
       </Pressable>
       <Pressable
         style={styles.button}
-        onPress={() => router.push("/about/copyright")}
+        onPress={() => router.push("/about/ref")}
       >
         <Text style={styles.title}>Références</Text>
       </Pressable>

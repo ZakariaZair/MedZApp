@@ -11,12 +11,14 @@ import {
 } from "react-native";
 import { SystemsContext } from "../../../common/interfaces";
 import AddSubjectModal from "../../../components/addSubject";
+import AddSourceModal from "../../../components/addSource";
 import RichTextEditor from "../../../components/richtexteditor";
 import { modify } from "../../../supabase/supabaseClient";
 
 export default function Configuration() {
   const { systems, subjects, refreshData } = React.useContext(SystemsContext);
   const [selectedSystemIndex, setSelectedSystemIndex] = useState(null);
+  const [selectedSubjectIndex, setSelectedSubjectIndex] = useState(null);
   const [currentSystemName, setSystemName] = useState(null);
   const [currentSubjectName, setSubjectName] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +27,8 @@ export default function Configuration() {
   const [content, setContent] = useState(
     "<p> Sélectionnez un sujet pour commencer ! </p>",
   );
-  const [addModalVisible, setAddModalVisible] = useState(false);
+  const [addSubjectModalVisible, setAddSubjectModalVisible] = useState(false);
+  const [addSourceModalVisible, setAddSourceModalVisible] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -52,12 +55,17 @@ export default function Configuration() {
     }
   };
 
-  const loadContent = (systemName: string) => {
+  /*
+    TODO: !TYPO REALLY UNCLEAR!
+    systemName should be subjectName
+  */
+  const loadContent = (systemName: string, subjectIndex: number) => {
     const content = subjects.find(
       (system) => system.name === systemName,
     ).rawData;
     setSubjectName(systemName);
     setContent(content);
+    setSelectedSubjectIndex(subjectIndex);
   };
 
   const save = () => {
@@ -71,9 +79,14 @@ export default function Configuration() {
   return (
     <View style={styles.container}>
       <AddSubjectModal
-        modalVisible={addModalVisible}
-        setModalVisible={setAddModalVisible}
+        modalVisible={addSubjectModalVisible}
+        setModalVisible={setAddSubjectModalVisible}
         systemName={currentSystemName}
+      />
+      <AddSourceModal
+        modalVisible={addSourceModalVisible}
+        setModalVisible={setAddSourceModalVisible}
+        subjectName={currentSubjectName}
       />
       <Animated.View
         style={[
@@ -125,13 +138,35 @@ export default function Configuration() {
                     {system.subjects &&
                       system.subjects.length > 0 &&
                       system.subjects.map((subject, subjectIndex) => (
-                        <View key={subjectIndex}>
+                        <View
+                          key={subjectIndex}
+                          style={styles.subjectContainer}
+                        >
                           <TouchableOpacity
                             style={{ width: "100%" }}
-                            onPress={() => loadContent(subject)}
+                            onPress={() => loadContent(subject, subjectIndex)}
                           >
-                            <Text style={styles.subject}> {subject} </Text>
+                            <Text
+                              style={
+                                selectedSubjectIndex === subjectIndex
+                                  ? styles.currentSubject
+                                  : styles.subject
+                              }
+                            >
+                              {" "}
+                              {subject}{" "}
+                            </Text>
                           </TouchableOpacity>
+                          {selectedSubjectIndex === subjectIndex && (
+                            <TouchableOpacity
+                              style={{ position: "absolute", right: 0 }}
+                              onPress={() =>
+                                setAddSourceModalVisible(!addSourceModalVisible)
+                              }
+                            >
+                              <Text style={styles.subject}>S</Text>
+                            </TouchableOpacity>
+                          )}
                         </View>
                       ))}
                     {!system.subjects && (
@@ -141,9 +176,16 @@ export default function Configuration() {
                       </Text>
                     )}
                     <Pressable
-                      onPress={() => setAddModalVisible(!addModalVisible)}
+                      onPress={() =>
+                        setAddSubjectModalVisible(!addSubjectModalVisible)
+                      }
                     >
-                      <Text style={[styles.subject, { color: "#00035B" }]}>
+                      <Text
+                        style={[
+                          styles.subject,
+                          { color: "green", fontWeight: "bold" },
+                        ]}
+                      >
                         {" "}
                         Ajouter +{" "}
                       </Text>
@@ -222,11 +264,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1.4,
     borderBottomColor: "#000A4D",
   },
+  subjectContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   subject: {
     padding: 10,
     marginLeft: 20,
-    fontSize: 20,
+    fontSize: 18,
     color: "black",
+  },
+  currentSubject: {
+    padding: 10,
+    marginLeft: 20,
+    fontSize: 18,
+    color: "orange",
   },
   subjectTitle: {
     padding: 10,

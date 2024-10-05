@@ -9,6 +9,12 @@ const supabaseAnonKey = NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+/*
+  FETCHING DATA :
+  fetchSystems() - Fetches all systems from the database
+  fetchSubjects() - Fetches all subjects from the database
+*/
+
 export async function fetchSystems(): Promise<System[]> {
   let { data, error } = await supabase.from("system").select("*");
 
@@ -22,6 +28,13 @@ export async function fetchSubjects(): Promise<Subject[]> {
   if (error) console.log("Error fetching data:", error);
   return data;
 }
+
+/*
+  METHODS :
+  modify() - Modifies the content of a subject
+  addSubjectToSystem() - Adds a new subject to a system
+  addSource() - Adds a new source for each subject
+*/
 
 export async function modify(
   subjectName: string,
@@ -39,36 +52,52 @@ export async function modify(
   return data;
 }
 
-export async function addSubjectToSystem(systemName: string, newSubjectName: string): Promise<Subject | null> {
+export async function addSubjectToSystem(
+  systemName: string,
+  newSubjectName: string,
+): Promise<Subject | null> {
   let { data: systemData } = await supabase
-     .from('system')
-     .select('subjects')
-     .eq('name', systemName)
-     .single();
+    .from("system")
+    .select("subjects")
+    .eq("name", systemName)
+    .single();
 
   const currentSubjects = systemData.subjects || [];
   const updatedSubjects = [...currentSubjects, newSubjectName];
 
   const { error: updateError } = await supabase
-    .from('system')
+    .from("system")
     .update({ subjects: updatedSubjects })
-    .eq('name', systemName);
+    .eq("name", systemName);
 
   if (updateError) {
-    console.error('Error updating system:', updateError);
+    console.error("Error updating system:", updateError);
   }
 
   const { data: subjectData, error: subjectError } = await supabase
-    .from('subject')
-    .insert([
-      { name: newSubjectName, rawData: '' },
-    ])
+    .from("subject")
+    .insert([{ name: newSubjectName, rawData: "" }])
     .single();
 
   if (subjectError) {
-    console.error('Error inserting new subject:', subjectError);
+    console.error("Error inserting new subject:", subjectError);
     return null;
   }
 
   return subjectData as any;
+}
+
+export async function addSource(
+  subjectName: string,
+  sourceText: string,
+): Promise<void> {
+  const { error } = await supabase
+    .from("subject")
+    .update([{ sources: sourceText }])
+    .eq("name", subjectName)
+    .single();
+
+  if (error) {
+    console.error("Error inserting new source:", error);
+  }
 }

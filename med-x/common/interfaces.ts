@@ -3,6 +3,7 @@ import React from "react";
 export interface Subject {
   name: string;
   rawData: string;
+  sources: string;
 }
 
 export interface System {

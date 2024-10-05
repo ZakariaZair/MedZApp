@@ -114,21 +114,6 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        key="copyright"
-        name="about/copyright"
-        options={{
-          title: "Références",
-          href: null,
-          headerTitleStyle: { color: "white" },
-          headerStyle: { backgroundColor: "#4788C7" },
-          headerLeft: () => (
-            <Pressable onPress={() => router.push("about")}>
-              <Text style={styles.back}>Retour</Text>
-            </Pressable>
-          ),
-        }}
-      />
-      <Tabs.Screen
         key="terms"
         name="about/terms"
         options={{
@@ -168,6 +153,52 @@ export default function TabsLayout() {
           headerStyle: { backgroundColor: "#4788C7" },
           headerLeft: () => (
             <Pressable onPress={() => router.push("about")}>
+              <Text style={styles.back}>Retour</Text>
+            </Pressable>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        key="ref"
+        name="about/ref/index"
+        options={{
+          headerTitle: "Références",
+          href: null,
+          title: "",
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#4788C7" },
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("about")}>
+              <Text style={styles.back}>Retour</Text>
+            </Pressable>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        key="source"
+        name="about/ref/source"
+        options={{
+          title: "Sources",
+          href: null,
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#4788C7" },
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("about/ref")}>
+              <Text style={styles.back}>Retour</Text>
+            </Pressable>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        key="icons"
+        name="about/ref/icons"
+        options={{
+          title: "Icônes",
+          href: null,
+          headerTitleStyle: { color: "white" },
+          headerStyle: { backgroundColor: "#4788C7" },
+          headerLeft: () => (
+            <Pressable onPress={() => router.push("about/ref")}>
               <Text style={styles.back}>Retour</Text>
             </Pressable>
           ),
