@@ -148,7 +148,8 @@ export default function Configuration() {
                           >
                             <Text
                               style={
-                                selectedSubjectIndex === subjectIndex
+                                selectedSubjectIndex === subjectIndex &&
+                                currentSubjectName === subject
                                   ? styles.currentSubject
                                   : styles.subject
                               }
@@ -157,16 +158,19 @@ export default function Configuration() {
                               {subject}{" "}
                             </Text>
                           </TouchableOpacity>
-                          {selectedSubjectIndex === subjectIndex && (
-                            <TouchableOpacity
-                              style={{ position: "absolute", right: 0 }}
-                              onPress={() =>
-                                setAddSourceModalVisible(!addSourceModalVisible)
-                              }
-                            >
-                              <Text style={styles.subject}>S</Text>
-                            </TouchableOpacity>
-                          )}
+                          {selectedSubjectIndex === subjectIndex &&
+                            currentSubjectName === subject && (
+                              <TouchableOpacity
+                                style={{ position: "absolute", right: 0 }}
+                                onPress={() =>
+                                  setAddSourceModalVisible(
+                                    !addSourceModalVisible,
+                                  )
+                                }
+                              >
+                                <Text style={styles.subject}>S</Text>
+                              </TouchableOpacity>
+                            )}
                         </View>
                       ))}
                     {!system.subjects && (
