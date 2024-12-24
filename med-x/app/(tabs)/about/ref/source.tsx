@@ -8,7 +8,6 @@ import {
   Pressable,
   View,
 } from "react-native";
-import systemIcons from "../../../../components/med-z-icons";
 import { SystemsContext } from "../../../../common/interfaces";
 
 export default function Source() {
@@ -29,26 +28,34 @@ export default function Source() {
         {systems &&
           systems.map((system, i) => {
             return (
-              <View key={i}>
-                <Pressable
-                  style={styles.toggle}
-                  onPress={() => toggleSystem(i)}
-                >
-                  <Text style={styles.title}>{system.name}</Text>
-                </Pressable>
-                {systemIndex === i &&
-                  system.subjects &&
-                  system.subjects.map((subjectName, j) => {
-                    return (
-                      <View key={j}>
-                        <Text style={styles.subtitle}>{subjectName}</Text>
-                        <Text style={styles.source}>
-                          {findSource(subjectName) && findSource(subjectName)}
-                        </Text>
-                      </View>
-                    );
-                  })}
-              </View>
+              system.subjects && (
+                <View key={i}>
+                  <Pressable
+                    style={styles.toggle}
+                    onPress={() => toggleSystem(i)}
+                  >
+                    <Text style={styles.title}>{system.name}</Text>
+                  </Pressable>
+                  {systemIndex === i &&
+                    system.subjects.map((subjectName, j) => {
+                      return (
+                        <View key={j}>
+                          <Text
+                            style={
+                              styles.subtitle &&
+                              (findSource(subjectName) ? {} : { color: "grey" })
+                            }
+                          >
+                            {subjectName}
+                          </Text>
+                          <Text style={styles.source}>
+                            {findSource(subjectName) && findSource(subjectName)}
+                          </Text>
+                        </View>
+                      );
+                    })}
+                </View>
+              )
             );
           })}
       </ScrollView>
@@ -72,13 +79,18 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,
+    fontWeight: "bold",
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: "bold",
   },
   source: {
     fontSize: 12,
-    paddingLeft: 10,
+    paddingLeft: 8,
+    paddingRight: 4,
+    paddingTop: 4,
+    paddingBottom: 8,
   },
 });

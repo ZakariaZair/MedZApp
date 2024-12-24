@@ -23,6 +23,7 @@ export default function Main() {
       <ScrollView>
         {systems
           .sort((a, b) => a.name.localeCompare(b.name))
+          .filter((s) => s.subjects && s.subjects.length > 0)
           .map((system, index) => (
             <Pressable
               key={index}
