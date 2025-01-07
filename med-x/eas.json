@@ -12,7 +12,8 @@
     },
     "production": {
       "env": {
-        "TIPTAP_AUTH_TOKEN": "r1llcXKy3b9HYp3zBS4GRkaOBeJ35cTXzrh1LXk14tPuI0Ua7alVNwSZXSnfMHkW"
+        "TIPTAP_AUTH_TOKEN": "r1llcXKy3b9HYp3zBS4GRkaOBeJ35cTXzrh1LXk14tPuI0Ua7alVNwSZXSnfMHkW",
+        "NODE_ENV": "production"
       }
     }
   },

@@ -1,7 +1,8 @@
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import React, { useEffect } from "react";
 import {
   Image,
+  Platform,
   Pressable,
   ScrollView,
   StatusBar,
@@ -14,9 +15,25 @@ import systemIcons from "../../components/med-z-icons";
 
 export default function Main() {
   const { systems } = React.useContext(SystemsContext);
+
   useEffect(() => {
     StatusBar.setBarStyle("light-content");
   }, [systems]);
+
+  useFocusEffect(() => {
+    if (Platform.OS === "web" && process.env.NODE_ENV === "production") {
+      const t = setTimeout(() => {
+        if (!(window.location.pathname === "/MedZApp")) {
+          window.history.replaceState(
+            { additionalInformation: "Updating" },
+            "Home",
+            window.location.href + "MedZApp",
+          );
+        }
+        clearTimeout(t);
+      }, 200);
+    }
+  });
 
   return (
     <View style={styles.container}>
@@ -54,16 +71,16 @@ const styles = StyleSheet.create({
     padding: "auto",
   },
   system: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 8,
     paddingHorizontal: 16,
+    paddingBottom: 10,
     marginTop: 5,
     backfaceVisibility: "hidden",
     borderBottomWidth: 1,
     borderBottomColor: "lightgrey",
-    paddingBottom: 10,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
   },
   systemName: {
     fontSize: 18,

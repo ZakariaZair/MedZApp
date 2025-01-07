@@ -33,10 +33,9 @@
       "baseUrl": "/MedZApp"
     },
     "web": {
-      "publicPath": "/MedZApp",
+      "startUrl": "/MedZApp/admin",
       "bundler": "metro",
-      "favicon": "./assets/favicon.png",
-      "basePath": "/MedZApp"
+      "favicon": "./assets/favicon.png"
     },
     "homepage": "https://zakariazair.github.io/MedZApp",
     "plugins": ["expo-router"],

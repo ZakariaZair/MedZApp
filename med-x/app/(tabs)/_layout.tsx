@@ -14,10 +14,19 @@ import {
   Text,
   View,
 } from "react-native";
-import Logo from "../../assets/images/white_logo_nobg.png";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function TabsLayout() {
+  const gradiator = () => {
+    return (
+      <LinearGradient
+        colors={["#4788C7", "#4788E7", "#4788F7"]}
+        locations={[0, 0.5, 1]}
+        style={styles.header}
+      ></LinearGradient>
+    );
+  };
+
   return (
     <Tabs>
       <Tabs.Screen
@@ -30,15 +39,7 @@ export default function TabsLayout() {
               <Text style={styles.title}>MedZNotes</Text>
             </View>
           ),
-          headerBackground: () => {
-            return (
-              <LinearGradient
-                colors={["#4788C7", "#4788C7", "#ffffff"]}
-                locations={[0, 1, 1]}
-                style={styles.header}
-              ></LinearGradient>
-            );
-          },
+          headerBackground: gradiator,
           title: "",
           tabBarIcon: ({ focused }) => (
             <Ionicons
@@ -54,6 +55,7 @@ export default function TabsLayout() {
         name="search"
         options={{
           headerTitle: "Barre de recherche",
+          headerBackground: gradiator,
           title: "",
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
@@ -71,6 +73,7 @@ export default function TabsLayout() {
         name="about/index"
         options={{
           headerTitle: "À propos",
+          headerBackground: gradiator,
           title: "",
           headerTitleStyle: { color: "white" },
           headerStyle: { backgroundColor: "#4788C7" },
@@ -287,6 +290,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
+    borderRadius: 25,
   },
   back: {
     color: "#fff",

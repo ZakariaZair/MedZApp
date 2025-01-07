@@ -19,6 +19,9 @@ export default function System() {
       ),
       headerTintColor: "#fff",
       headerStyle: { backgroundColor: "#4788C7" },
+      headerTitleStyle: {
+        fontWeight: "bold",
+      },
     });
   }, [navigation, systemName]);
 

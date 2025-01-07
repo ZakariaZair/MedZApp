@@ -135,7 +135,7 @@ export default function Search() {
         <View style={styles.noContentContainer}>
           <Image
             source={Logo}
-            style={{ width: 360, height: 360, opacity: 0.1 }}
+            style={{ width: 360, height: 360, opacity: 0.05 }}
           />
           <Text style={styles.noContentPlaceholder}>
             Recherchez un système ou un sujet
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   searchTitle: {
     width: "100%",
     borderBottomColor: "lightgrey",
-    borderBottomWidth: 4,
+    borderBottomWidth: 2,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -223,9 +223,9 @@ const styles = StyleSheet.create({
   },
   noContentPlaceholder: {
     fontSize: 20,
-    fontWeight: "bold",
+    color: "#4788C7",
     textAlign: "center",
-    opacity: 0.3,
+    opacity: 0.2,
   },
   highlight: {
     backgroundColor: "#00035B33",
